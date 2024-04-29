@@ -1,0 +1,10 @@
+/* || Imports */
+
+@import "common/styles/fonts.css";
+
+/* || Tailwind imports */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
