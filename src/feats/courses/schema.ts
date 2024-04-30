@@ -12,4 +12,4 @@ export const courses = mysqlTable("Courses", {
 	price: int("price", { unsigned: true }).notNull(),
 	discount: int("discount", { unsigned: true })
 });
-//la durée??
+//voir pour identifier si c'est un cours synchron ou asynchrone?
