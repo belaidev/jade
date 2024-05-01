@@ -10,11 +10,12 @@ export type CourseCard = {
 	description: string;
 	instructorId: number;
 	thumbnailUrl: string;
+	synchronousCours: boolean;
 	price: number;
 	discount: number | null;
 }
 
 export async function getAllCours() {
-	const result = await db.select().from(courses); 
+	const result = await db.select().from(courses);
 	return result;
 }

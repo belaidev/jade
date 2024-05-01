@@ -3,9 +3,7 @@ import { getOneSynchronous } from "../synchronous-courses/functions";
 
 export default function Card(Course : CourseCard) {
 
-//discout?
-//durée?
-//Synchrone / Asynchrone
+
 
 	return (
 
