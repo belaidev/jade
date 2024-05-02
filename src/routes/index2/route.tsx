@@ -1,5 +1,4 @@
 // routes/_index2/route.tsx
-
 import { RouteComponent } from "@remix-run/react/dist/routeModules";
 
 const Index2Page: RouteComponent = () => {
