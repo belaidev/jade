@@ -39,11 +39,6 @@ export const Layout: LayoutComponent = ({ children }: { children: ReactNode }) =
 								</a>
 							</div>
 
-							{/* Ajoutez le lien vers la page d'accueil index2 */}
-								<a className="flex items-center p-2 font-medium" href="/index2">
-									Accueil
-								</a>
-
 							{/* Navigation links */}
 							<ul className="flex gap-2">
 								<li>

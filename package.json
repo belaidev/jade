@@ -19,6 +19,7 @@
 		"@remix-run/node": "^2.9.1",
 		"@remix-run/react": "^2.9.1",
 		"@remix-run/serve": "^2.9.1",
+		"@syncfusion/ej2-react-navigations": "^25.1.42",
 		"autosize": "^6.0.1",
 		"drizzle-orm": "^0.30.9",
 		"http-status-codes": "^2.3.0",
