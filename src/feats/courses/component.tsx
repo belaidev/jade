@@ -1,24 +1,36 @@
-import { CourseCard } from "./functions";
-import { getOneSynchronous } from "../synchronous-courses/functions";
-
-export default function Card(Course : CourseCard) {
-
-
-
-	return (
+import { Course, CourseCard, CourseCardAsync, CourseCardSync} from "./functions";
+import { getOneCours } from "./functions";
+import { json } from "drizzle-orm/pg-core";
+import { useLoaderData } from "@remix-run/react";
 
 
-		<div className="max-w-sm overflow-hidden rounded shadow-lg">
-			<img className="w-full" src={Course.thumbnailUrl} alt="" />
-			<div className="px-6 py-4">
-				<div className="mb-2 text-xl font-bold">{Course.title}</div>
-				<p className="text-base text-gray-700">
-					{Course.instructorId}
+interface LoaderData {
+	courseInfo: CourseCard;
+}
 
-					<br />
-					{Course.price}
-				</p>
-			</div>
-		</div>
-	);
+export async function loader(Course) {
+  const courseInfo = await getOneCours(Course.id);
+  return json(JSON.stringify({ courseInfo }));
+}
+
+
+export default function Card(course: Course) {
+	const { courseInfo } = useLoaderData<LoaderData>();
+
+
+  return (
+    <div className="max-w-sm overflow-hidden rounded shadow-lg">
+      <img className="w-full" src={course.thumbnailUrl} alt={course.title} />
+      <div className="px-6 py-4">
+        <div className="mb-2 text-xl font-bold">{course.title}</div>
+        <p className="text-base text-gray-700">
+          Instructor: {course.instructorId}
+          <br />
+          Chapter: {courseInfo.chapterId}
+          <br />
+          Price: {course.price}
+        </p>
+      </div>
+    </div>
+  );
 }

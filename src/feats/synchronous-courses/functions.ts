@@ -5,6 +5,6 @@ import { eq} from 'drizzle-orm';
 
 export async function getOneSynchronous(id : number){
 
-	const result = await db.select().from(classes).where(eq(classes.id, id))
+	const [result] = await db.select().from(classes).where(eq(classes.id, id))
 	return result;
 }
