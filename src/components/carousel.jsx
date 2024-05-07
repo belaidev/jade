@@ -1,4 +1,4 @@
-// components/carousel3.js
+// components/carousel.jsx
 import React, { useEffect, useState } from 'react';
 
 // @ts-ignore

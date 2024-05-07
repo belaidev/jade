@@ -1,5 +1,5 @@
 import { RouteComponent } from "@remix-run/react/dist/routeModules";
-import Carousel from '../../components/carousel';
+import Carousel from '~/components/carousel';
 import "./style.css";
 
 const images = [
