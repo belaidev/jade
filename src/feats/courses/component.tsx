@@ -4,19 +4,14 @@ import { json } from "drizzle-orm/pg-core";
 import { useLoaderData } from "@remix-run/react";
 
 
-interface LoaderData {
-	courseInfo: CourseCard;
-}
 
-export async function loader(Course) {
-  const courseInfo = await getOneCours(Course.id);
+export async function loader(course: Course) {
+  const courseInfo = await getOneCours(course.id);
   return json(JSON.stringify({ courseInfo }));
 }
 
 
-export default function Card(course: Course) {
-	const { courseInfo } = useLoaderData<LoaderData>();
-
+export default function Card(course : CourseCard ) {
 
   return (
     <div className="max-w-sm overflow-hidden rounded shadow-lg">
@@ -26,9 +21,10 @@ export default function Card(course: Course) {
         <p className="text-base text-gray-700">
           Instructor: {course.instructorId}
           <br />
-          Chapter: {courseInfo.chapterId}
+					Duration : {course.duration}
           <br />
           Price: {course.price}
+					{course.id}
         </p>
       </div>
     </div>
