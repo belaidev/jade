@@ -1,7 +1,7 @@
 // components/carousel.jsx
 import React, { useEffect, useState } from 'react';
+import "../routes/_index/style.css";
 
-// @ts-ignore
 const CarouselIndicators = ({ images, activeIndex, onClick }) => {
   return (
     <div className="carousel__indicators">
@@ -18,7 +18,7 @@ const CarouselIndicators = ({ images, activeIndex, onClick }) => {
   );
 };
 
-const Carousel = ({ images, interval = 4000 }) => {
+const Carousel = ({ images, interval = 5000 }) => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const nextSlide = () => {
