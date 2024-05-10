@@ -1,6 +1,5 @@
 import { InferSelectModel, eq } from "drizzle-orm";
 import { db } from "~/common/utils/db.server";
-import { ExpandRecursively } from "~/common/utils/expand";
 import { asynchronousCourses, lessons } from "../asynchronous-courses/schema";
 import { classes, synchronousCourses } from "../synchronous-courses/schema";
 import { courses } from "./schema";
@@ -10,14 +9,14 @@ export type CourseCardAsync = {
 	capsuleUrl: string;
 	previewable: boolean;
 	duration: string;
-}[];
+};
 
 export type CourseCardSync = {
 	synchronousCourseId: number;
 	startTime: Date;
 	endTime: Date;
 	meetingUrl: string | null;
-}[];
+};
 
 export type Course = {
 	id: number;
@@ -28,7 +27,6 @@ export type Course = {
 	price: number;
 	discount: number | null;
 };
-
 
 export type CourseCard = Omit<
 	InferSelectModel<typeof classes> &
@@ -47,22 +45,22 @@ export async function getAllCours() {
 export async function getOneCours(id: number) {
 	const course = await db.select().from(courses).where(eq(courses.id, id));
 
-	const syncCourse: CourseCardSync = await db
-		.select()
-		.from(classes)
-		.where(eq(synchronousCourses.id, courses.id));
+	const syncCourse: CourseCardSync[] = await db
+			.select()
+			.from(classes)
+			.where(eq(synchronousCourses.id, id));
 
 	let CoursInfo;
 
-	if (syncCourse === undefined) {
-		const asyncCourseInfo: CourseCardAsync = await db
-			.select()
-			.from(lessons)
-			.where(eq(asynchronousCourses.id, courses.id));
+	if (syncCourse.length === 0) {
+			const asyncCourseInfo: CourseCardAsync[] = await db
+					.select()
+					.from(lessons)
+					.where(eq(asynchronousCourses.id, id));
 
-		CoursInfo = [...course, ...asyncCourseInfo];
+			CoursInfo = [...course, ...asyncCourseInfo];
 	} else {
-		CoursInfo = [...course, ...syncCourse];
+			CoursInfo = [...course, ...syncCourse];
 	}
 
 	return CoursInfo;

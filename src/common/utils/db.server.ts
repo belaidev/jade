@@ -17,3 +17,5 @@ const conn = await mysql.createConnection({
 
 export const db = drizzle(conn);
 await migrate(db, { migrationsFolder: "migrations" });
+//await conn.end();
+process.on("beforeExit", async ()=> {await conn.end()})

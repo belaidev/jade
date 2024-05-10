@@ -7,7 +7,7 @@ const getEnv = (envVarName: string) => {
 };
 
 export default {
-	schema: "./src/feats/*",
+	schema: "./src/feats/**/schema.ts",
 	out: "./migrations",
 	strict: true,
 	driver: "mysql2",

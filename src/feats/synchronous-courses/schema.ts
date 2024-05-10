@@ -1,6 +1,6 @@
 import { int, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
-import { entityCols } from "~/common/models";
-import { courses } from "~/feats/courses";
+import { entityCols } from "~/common/models/Entity";
+import { courses } from "../courses/schema";
 
 export const synchronousCourses = mysqlTable("SynchronousCourses", {
 	id: int("id", { unsigned: true })

@@ -1,7 +1,7 @@
 import { int, mysqlTable, tinyint, unique, varchar } from "drizzle-orm/mysql-core";
-import { entityCols } from "~/common/models";
-import { courses } from "~/feats/courses";
-import { students } from "~/feats/students";
+import { entityCols } from "~/common/models/Entity";
+import { courses } from "../courses/schema";
+import { students } from "../students/schema";
 
 export const reviews = mysqlTable(
 	"Reviews",
