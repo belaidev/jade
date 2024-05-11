@@ -1,17 +1,32 @@
 import { RouteComponent } from "@remix-run/react/dist/routeModules";
 import Carousel from '~/components/carousel';
 import "./style.css";
-import { getThumbnailUrlsOfCoursesWithDiscount } from "~/feats/asynchronous-courses/services-test";
+import React, { useEffect, useState } from 'react';
+import { fetchThumbnailUrls } from '~/routes/_index/index-service';
 
-const Page: RouteComponent = () => {
+const IndexPage : RouteComponent = ()  => {
+	/*
 	const defaultImageUrl: string = '/img/img-default.jpg';
-	let images: string[] = [];
+	let images: string[] = [
+		'/img/img-default.jpg',
+		'/img/img-001.jpg',
+		'/img/img-002.jpg',
+		'/img/img-003.jpg'
+	];*/
+	const [images, setImages] = useState<string[]>([]);
 
-	async function fetchImages() {
-		images = await getThumbnailUrlsOfCoursesWithDiscount();
-	}
+    const getThumbnailUrls = async () => {
+        try {
+            const result = await fetchThumbnailUrls();
+            setImages(result);
+        } catch (error) {
+            console.error("Error fetching thumbnail URLs:", error);
+        }
+    };
 
-	console.log('contenu de la var images: ', images);
+    useEffect(() => {
+        getThumbnailUrls();
+    }, []);
 
 	return (
 		<main className="flex flex-col items-center justify-center">
@@ -22,11 +37,17 @@ const Page: RouteComponent = () => {
 				<div className="carousel-section">
 					<Carousel images={images} />
 				</div>
-				<div className="affichage-section">
-                    Contenu de la variable images : {images.join(", ")}
-                </div>
+				<a href="/test">Aller à la page de test</a>
 			</div>
+			
 		</main>
 	);
+
+	const root = ReactDOM.createRoot(
+		document.getElementById('root')
+	  );
+	  root.render(element);
 };
-export default Page;
+
+
+export default IndexPage;

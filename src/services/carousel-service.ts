@@ -1,16 +1,23 @@
-// feats/asynchronous-courses/services-test.ts
-import { Query } from "drizzle-orm/mysql-core";
-import { courses } from "~/feats/courses";
+/*
+import { db } from "~/common/utils/db.server";
+import { courses } from "~/feats/courses/schema";
+import { gt } from "drizzle-orm";
+
+// Définition du type pour un cours
+export type Course = {
+    id: number;
+    title: string;
+    description: string;
+    instructorId: number;
+    thumbnailUrl: string;
+    price: number;
+    discount: number | null;
+};
 
 // Fonction pour récupérer les cours avec une remise supérieure à 0
 export async function getCoursesWithDiscount(): Promise<any[]> {
     try {
-        const query = Query
-            .select(courses.id, courses.title, courses.thumbnailUrl, courses.discount)
-            .from(courses)
-            .where((courses.discount as any).isGreaterThan(0));
-
-        const result = await query.run();
+        const result = await db.select().from(courses).where(gt(courses.discount, 0)).run();
         return result.rows;
     } catch (error) {
         console.error("Error fetching courses with discount:", error);
@@ -29,3 +36,4 @@ export async function getThumbnailUrlsOfCoursesWithDiscount(): Promise<string[]>
         throw error;
     }
 }
+*/

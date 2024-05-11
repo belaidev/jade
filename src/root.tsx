@@ -38,6 +38,12 @@ export const Layout: LayoutComponent = ({ children }: { children: ReactNode }) =
 									&nbsp;Jade
 								</a>
 							</div>
+							<div>
+								<a className="flex items-center font-head text-xl font-light lowercase" href="/carousel">
+									<MdiLanguageRuby />
+									&nbsp;carousel
+								</a>
+							</div>
 
 							{/* Navigation links */}
 							<ul className="flex gap-2">
