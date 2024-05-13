@@ -3,6 +3,8 @@
     position: relative;
     max-width: 100%;
     overflow: hidden;
+    width: 600px;
+    height: 400px;
   }
   .carousel__btn {
     position: absolute;
@@ -28,9 +30,10 @@
   }
   .carousel__img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     transition: transform 0.3s ease-in-out;
+    object-fit: cover;
   }
   .carousel__img:hover {
     transform: scale(1.05);
@@ -60,3 +63,33 @@
     background-color: white;
   }
   
+  .promotion-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.promotion-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.promotion-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.promotion-link {
+    font-size: 18px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.promotion-link:hover {
+    text-decoration: underline;
+}

@@ -1,5 +1,6 @@
+// routes/_index/route.tsx (IndexPage)
 import { useLoaderData, json } from "@remix-run/react";
-import { fetchThumbnailUrls } from '~/routes/_index/index-service';
+import { fetchThumbnailUrls } from '~/services/carousel-service.ts';
 import Carousel from '~/components/carousel';
 import "./style.css";
 
@@ -8,7 +9,8 @@ interface LoaderData {
 }
 
 export async function loader() {
-    const images = await fetchThumbnailUrls();
+    const rawImages = await fetchThumbnailUrls();
+	const images = rawImages.slice(0, 10); // affichage limité à 10 cours en promotion
     return json<LoaderData>({ images });
 }
 
@@ -21,10 +23,15 @@ export default function IndexPage() {
                 <div className="font-head text-5xl lowercase mb-4">
                     Bienvenue sur <span className="font-thin text-primary-1">jade</span>
                 </div>
-                <div className="carousel-section">
+                
+				<div className="promotion-section">
+                    <h2 className="promotion-title">Cours en Promotion</h2>
+                    <p className="promotion-description">Découvrez nos cours en promotion et profitez des offres spéciales !</p>
+					<div className="carousel-section">
                     <Carousel images={images} />
+                	</div>
+                    <a href="#" className="promotion-link">Voir toutes les promotions</a>
                 </div>
-                <a href="/test">Aller à la page de test</a>
             </div>
         </main>
     );
