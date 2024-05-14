@@ -21,7 +21,7 @@ export default function IndexPage() {
         <main className="flex flex-col items-center justify-center">
             <div className="flex flex-col items-center">
                 <div className="font-head text-5xl lowercase mb-4">
-                    Bienvenue sur <span className="font-thin text-primary-1">jade</span>
+                    <p className="welcome-text">Bienvenue sur <span className="font-thin text-primary-1">jade</span></p>
                 </div>
                 
 				<div className="promotion-section">
