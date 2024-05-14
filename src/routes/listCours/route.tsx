@@ -1,7 +1,7 @@
 import { json, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import Card from "~/feats/courses/component";
 import { Course, getAllCours } from "~/feats/courses/functions";
+import Card from "~/routes/listCours/component";
 
 interface LoaderData {
 	courses: Course[];
@@ -13,47 +13,50 @@ export async function loader() {
 }
 
 export default function Courses() {
-	console.log("Component mounted");
+	console.log("page montée");
 	const { courses } = useLoaderData<LoaderData>();
-	const [filterType, setFilterType] = useState<string>("A-Z");
-
-	// Liste des cours filtrés
-	const [filteredCourses, setFilteredCourses] = useState<Course[]>(courses);
+	const [sortBy, setSortBy] = useState<string>("");
+	const [sortedCourses, setSortedCourses] = useState<Course[]>([]);
 
 	useEffect(() => {
-		// Trier les cours filtrés par ordre alphabétique des titres
-		if (filterType === "A-Z") {
-			setFilteredCourses(courses.sort((a, b) => a.title.localeCompare(b.title)));
-		} else if (filterType === "price") {
-			// Trier les cours filtrés par ordre croissant des prix
-			setFilteredCourses(courses.sort((a, b) => a.price - b.price));
-		}
-	}, [courses, filterType]);
+		// Fonction de tri des cours
+		const sortCourses = (sortBy: string, courses: Course[]) => {
+			switch (sortBy) {
+				case "A-Z":
+					return [...courses].sort((a, b) => a.title.localeCompare(b.title));
+				case "price-asc":
+					return [...courses].sort((a, b) => a.price - b.price);
+				case "price-desc":
+					return [...courses].sort((a, b) => b.price - a.price);
+				default:
+					return courses;
+			}
+		};
+		console.log("courses:", courses);
 
-	// Fonction pour mettre à jour le type de filtre
-	const handleFilterTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const newFilterType = e.target.value;
-		console.log("New filter type:", newFilterType);
-		setFilterType(newFilterType);
+		// Mettre à jour les cours triés lorsque sortBy change
+		const sorted = sortCourses(sortBy, courses);
+		setSortedCourses(sorted);
+	}, [sortBy, courses]);
+
+	const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		setSortBy(event.target.value);
 	};
-
-	console.log(filteredCourses);
 
 	return (
 		<div>
 			{/* Sélecteur de type de filtre */}
-			<select value={filterType} onChange={handleFilterTypeChange}>
-				<option value="A-Z">Title (A-Z)</option>
-				<option value="price">Price (croissant)</option>
+			<select value={sortBy} onChange={handleChange}>
+				<option value="">Trier par</option>
+				<option value="A-Z">Titre (A-Z)</option>
+				<option value="price-asc">Prix (croissant)</option>
+				<option value="price-desc">Prix (décroissant)</option>
 			</select>
 
 			{/* Liste des cours filtrés */}
-			{filteredCourses.map((course: Course) => (
+			{sortedCourses.map((course: Course) => (
 				<Card key={course.id} {...course} />
-
 			))}
 		</div>
-
 	);
-
 }
