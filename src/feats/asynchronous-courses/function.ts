@@ -4,10 +4,10 @@ import { lessons } from "./schema";
 
 export async function getOneAsynchronous(id: number) {
 	const result = await db
-		.select({ duration: lessons.duration })
+		.select()
 		.from(lessons)
 		.where(eq(lessons.id, id));
 	return result;
 
-	//foreach
+	
 }

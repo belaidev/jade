@@ -1,7 +1,7 @@
 import { json, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
+import Card from "~/feats/courses/component";
 import { Course, getAllCours } from "~/feats/courses/functions";
-import Card from "~/routes/listCours/component";
 
 interface LoaderData {
 	courses: Course[];

@@ -70,6 +70,7 @@
 		"unplugin-auto-import": "^0.17.5",
 		"unplugin-icons": "^0.18.5",
 		"vite": "^5.2.10",
+		"vite-env-only": "^2.3.0",
 		"vite-tsconfig-paths": "^4.3.2"
 	}
 }
