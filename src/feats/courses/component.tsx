@@ -1,7 +1,6 @@
 import { useLoaderData } from "@remix-run/react";
 import { json } from "drizzle-orm/mysql-core";
-import { Course, CourseCard } from "./functions";
-import { getOneCours } from "~/feats/courses/getOneCours";
+import { Course, CourseCard, getOneCours } from "./functions";
 import { serverOnly$ } from "vite-env-only";
 
 interface LoaderData {
