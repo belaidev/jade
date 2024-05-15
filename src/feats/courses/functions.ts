@@ -39,6 +39,6 @@ export type CourseCard = Omit<
 	(CourseCardSync | CourseCardAsync);
 
 export async function getAllCours() {
-	const result = serverOnly$(await db.select().from(courses));
+	const result = await db.select().from(courses);
 	return result;
 }
