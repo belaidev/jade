@@ -7,7 +7,7 @@ import { gt, gte, eq } from "drizzle-orm";
 // Définition du type pour un cours
 export type Course = {
     id: number;
-    title: string;  
+    title: string;
     description: string;
     instructorId: number;
     thumbnailUrl: string;
@@ -35,10 +35,8 @@ export type PopularCourse = {
     thumbnailUrl: string;
     price: number;
     discount: number | null;
-    rating: number;
+    rating: number | undefined;
 };
-
-// export type courseId = number;
 
 // Fonction pour récupérer tous les cours
 export async function getAllCourses(): Promise<Course[]> {
@@ -68,28 +66,6 @@ export async function getDiscountCoursesThumbnails(): Promise<string[]> {
     }
 }
 
-/*
-// Fonction pour récupérer les cours avec un rating supérieur ou égal à 4.0
-export async function getPopularCourses(): Promise<PopularCourse[]> {
-    try {
-        let popularCourses: PopularCourse[] = [];
-
-        const result = await db.select().from(courses)
-            .innerJoin(reviews, eq(courses.id, reviews.courseId))
-            .where(gte(reviews.rating, 4.0));
-
-        for (const PopularCourse of result) {
-            popularCourses.push(PopularCourse);
-        }
-
-        return popularCourses;
-    } catch (error) {
-        console.error("Error fetching popular courses:", error);
-        throw error;
-    }
-}
-*/
-
 // Fonction pour récupérer les IDs des cours dont le rating dépasse 4
 async function getCourseIdsWithHighRating(): Promise<number[]> {
     try {
@@ -110,14 +86,19 @@ async function getCourseIdsWithHighRating(): Promise<number[]> {
     }
 }
 
-// >>>>>>>> CONTINUER ICI --------------------<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-// Décommmenter avant de poursuivre
-/*
 // Fonction pour récupérer les informations d'un cours en fonction de son ID
-async function getCourseById(courseId: number): Promise<Course | null> {
+async function getCourseById(courseId: number): Promise<Course | undefined | null> {
     try {
         const result = await db.select().from(courses).where(eq(courses.id, courseId));
-        return result;
+        // Vérifier s'il y a des résultats
+        if (result && result.length > 0) {
+            // Retourner le premier résultat trouvé
+            return result[0];
+        } else {
+            // Si aucun résultat trouvé, retourner null
+            console.log(`Aucun cours trouvé pour l'ID ${courseId}:`);
+            return null;
+        }
     } catch (error) {
         console.error(`Error fetching course with ID ${courseId}:`, error);
         throw error;
@@ -125,10 +106,18 @@ async function getCourseById(courseId: number): Promise<Course | null> {
 }
 
 // Fonction pour récupérer la note d'un cours en fonction de son ID
-async function getRatingByCourseId(courseId: number): Promise<number | null> {
+async function getRatingByCourseId(courseId: number): Promise<number | undefined | null> {
     try {
-        const result = await db.select(reviews.rating).from(reviews).where(eq(reviews.courseId, courseId));
-        return result.length ? result[0][reviews.rating] : null;
+        const result = await db.select({rating: reviews.rating}).from(reviews).where(eq(reviews.courseId, courseId));
+         // Vérifier s'il y a des résultats
+         if (result && result.length > 0) {
+            // Retourner le premier résultat trouvé
+            return result[0]?.rating;
+        } else {
+            // Si aucun résultat trouvé, retourner null
+            console.log(`Aucun cours trouvé pour l'ID ${courseId}:`);
+            return null;
+        }
     } catch (error) {
         console.error(`Error fetching rating for course with ID ${courseId}:`, error);
         throw error;
@@ -170,4 +159,3 @@ export async function getPopularCourses(): Promise<PopularCourse[]> {
         throw error;
     }
 }
-*/
