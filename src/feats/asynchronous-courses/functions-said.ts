@@ -87,11 +87,11 @@ async function getCourseIdsWithHighRating(): Promise<number[]> {
 }
 
 // Fonction pour récupérer les informations d'un cours en fonction de son ID
-async function getCourseById(courseId: number): Promise<Course | undefined | null> {
+async function getCourseById(courseId: number): Promise<Course | null> {
     try {
         const result = await db.select().from(courses).where(eq(courses.id, courseId));
         // Vérifier s'il y a des résultats
-        if (result && result.length > 0) {
+        if (result[0]) {
             // Retourner le premier résultat trouvé
             return result[0];
         } else {
@@ -106,13 +106,13 @@ async function getCourseById(courseId: number): Promise<Course | undefined | nul
 }
 
 // Fonction pour récupérer la note d'un cours en fonction de son ID
-async function getRatingByCourseId(courseId: number): Promise<number | undefined | null> {
+async function getRatingByCourseId(courseId: number): Promise<number | null> {
     try {
         const result = await db.select({rating: reviews.rating}).from(reviews).where(eq(reviews.courseId, courseId));
          // Vérifier s'il y a des résultats
-         if (result && result.length > 0) {
+         if (result[0]) {
             // Retourner le premier résultat trouvé
-            return result[0]?.rating;
+            return result[0].rating;
         } else {
             // Si aucun résultat trouvé, retourner null
             console.log(`Aucun cours trouvé pour l'ID ${courseId}:`);
