@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import "../routes/_index/style.css";
+import "./carousel.css";
 
 interface CarouselProps {
   images: string[];
@@ -26,7 +26,7 @@ const CarouselIndicators: React.FC<{
   );
 };
 
-const Carousel2: React.FC<CarouselProps> = ({ images, interval = 5000 }) => {
+const Carousel: React.FC<CarouselProps> = ({ images, interval = 5000 }) => {
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const nextSlide = () => {
@@ -74,4 +74,4 @@ const Carousel2: React.FC<CarouselProps> = ({ images, interval = 5000 }) => {
   );
 };
 
-export default Carousel2;
+export default Carousel;
