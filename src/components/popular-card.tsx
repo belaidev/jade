@@ -22,7 +22,7 @@ export default function PopularCard(course: PopularCourse) {
                                 <br />
                                 {course.discount ? <span>Discount: {course.discount}%</span> : null}
                                 <br />
-                                <div className="rating-container" style={{ display: 'flex', alignItems: 'center' }}>
+                                <div className="rating-container">
                                     Note: <StarRating rating={course.rating !== undefined ? course.rating : 0} /> ({course.rating !== undefined ? course.rating.toFixed(1) : 'No rating'})
                                 </div>
                                 <br />
