@@ -16,6 +16,8 @@ main, body {
   font-size: 28px;
   font-weight: bold;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .promotion-description, .popular-description {
@@ -39,6 +41,32 @@ main, body {
   margin-top: 30px;
   padding: 10px;
   max-width: 100%;
+}
+
+/* Style icone Feu */
+.fire-icon {
+  color: #ff3d00;
+  font-size: 1.5em;
+  background: linear-gradient(45deg, #ff9a00, #ff3d00);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: flame-flicker 1s infinite alternate;
+  margin-left: 8px;
+}
+
+@keyframes flame-flicker {
+  0% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+  50% {
+    transform: translateY(-2px);
+    filter: brightness(1.2);
+  }
+  100% {
+    transform: translateY(2px);
+    filter: brightness(0.8);
+  }
 }
 
 /* Styles responsifs */

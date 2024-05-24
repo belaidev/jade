@@ -6,6 +6,8 @@ import Carousel from '~/components/carousel';
 import PopularCard from "~/components/popular-card";
 import "./style.css";
 import type { PopularCourse } from '~/feats/asynchronous-courses/functions-said';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFire } from "@fortawesome/free-solid-svg-icons";
 
 interface LoaderData {
     images: string[];
@@ -39,7 +41,7 @@ export default function IndexPage() {
                 </div>
 
                 <div className="popular-section w-full">
-                    <h2 className="popular-title">Cours Populaires</h2>
+                    <h2 className="popular-title">Cours Populaires<FontAwesomeIcon icon={faFire} className="fire-icon" /></h2>
                     <p className="popular-description">Découvrez nos cours les plus populaires !</p>
                     <div className="popular-card-section">
                         {popularCourses.map((course) => (
