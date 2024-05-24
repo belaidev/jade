@@ -1,46 +1,42 @@
-import { useLoaderData } from "@remix-run/react";
-import { json } from "drizzle-orm/mysql-core";
-import { Course, CourseCard, getOneCours } from "./functions";
-import { serverOnly$ } from "vite-env-only";
+import { Course, CourseCardSync, CourseCardAsync  } from "./functions";
 
-interface LoaderData {
-	courseInfo: CourseCard[];
-}
 
-export async function loader(course: Course) {
-	const courseInfo = serverOnly$(await getOneCours(course.id));
-	return json(JSON.stringify({ courseInfo }));
-}
 
-export function DurationTime() {
-	const { courseInfo } = useLoaderData<LoaderData>();
-	let totalDuration = 0;
+export default function Card({ course }: { course: Course }) {
 
-	// Parcourir chaque élément de courseInfo
-	for (const info of courseInfo) {
-		// Vérifier si l'élément est de type CourseCardAsync
-		if ("duration" in info) {
-			totalDuration += parseInt(info.duration); // Ajouter la durée à totalDuration
-		}
-	}
+	const isSyncCourse = (course: Course): course is CourseCardSync => course.type === "sync";
+	const isAsyncCourse = (course: Course): course is CourseCardAsync => course.type === "async";
 
-	return totalDuration;
-}
 
-export default function Card(course: Course) {
 	return (
-		<div className="max-w-sm overflow-hidden rounded shadow-lg">
-			<img className="w-full" src={course.thumbnailUrl} alt={course.title} />
-			<div className="px-6 py-4">
-				<div className="mb-2 text-xl font-bold">{course.title}</div>
-				<p className="text-base text-gray-700">
-					Instructor: {course.instructorId}
-					<br />
-					<br />
-					Price: {course.price}
-					{course.id}
-				</p>
+		<a href={`/details/${course.id}`}>
+			<div className="max-w-sm overflow-hidden rounded shadow-lg">
+				<img className="w-full" src={course.thumbnailUrl} alt={course.title} />
+				<div className="px-6 py-4">
+					<div className="mb-2 text-xl font-bold">{course.title}</div>
+					<p className="text-base text-gray-700">
+						Description: {course.description}
+						<br />
+						Instructor: {course.instructorId}
+						<br />
+						{isAsyncCourse(course) && (
+							<>
+								Duration: {course.totalDuration}
+								{console.log("duration :", course.totalDuration )}
+								<br />
+							</>
+						)}
+						{isSyncCourse(course) && (
+							<>
+								Start Time: {new Date(course.startTime).toLocaleString()}
+								{console.log("date :", course.startTime )}
+								<br />
+							</>
+						)}
+						Price: {course.price}
+					</p>
+				</div>
 			</div>
-		</div>
+		</a>
 	);
 }
