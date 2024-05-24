@@ -41,22 +41,6 @@ main, body {
   max-width: 100%;
 }
 
-.popular-card-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: 8px;
-}
-
-.popular-card-section .popular-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-
 /* Styles responsifs */
 @media only screen and (max-width: 768px) {
   .promotion-section, .popular-section {
@@ -74,9 +58,6 @@ main, body {
   }
   .welcome-text {
     font-size: 40px;
-  }
-  .popular-card-section {
-    max-width: 100%;
   }
 }
 
@@ -96,9 +77,5 @@ main, body {
   }
   .welcome-text {
     font-size: 32px;
-  }
-  .popular-card-section {
-    grid-template-columns: 1fr;
-    max-width: 100%;
   }
 }

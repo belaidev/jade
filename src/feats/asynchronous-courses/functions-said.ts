@@ -2,7 +2,7 @@
 import { db } from "~/common/utils/db.server";
 import { courses } from "~/feats/courses/schema";
 import { reviews } from "~/feats/reviews/schema";
-import { gt, eq, sql, avg } from "drizzle-orm";
+import { gt, eq, sql } from "drizzle-orm";
 import { persons } from "../persons";
 
 // Définition du type pour un cours
