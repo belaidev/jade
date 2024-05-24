@@ -7,27 +7,46 @@ export default function PopularCard(course: PopularCourse) {
     const cardRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (cardRef.current) {
+        const adjustCardHeights = () => {
             const cards = document.querySelectorAll('.popular-card');
 
-            // Initial height value
             let maxHeight = 0;
 
-            // Calculate maximum height of popular cards
             cards.forEach((card) => {
-                const cardHeight = (card as HTMLElement).getBoundingClientRect().height;
+                const cardHeight = card.getBoundingClientRect().height;
                 if (cardHeight > maxHeight) {
                     maxHeight = cardHeight;
                 }
             });
 
-            // Adjust padding-bottom of card-text-content based on the maximum height
             cards.forEach((card) => {
                 const cardContent = card.querySelector('.card-text-content') as HTMLElement;
-                const paddingNeeded = maxHeight - (card.getBoundingClientRect().height);
+                const currentHeight = card.getBoundingClientRect().height;
+                const paddingNeeded = maxHeight - currentHeight + 10;
                 cardContent.style.paddingBottom = `${paddingNeeded}px`;
             });
+        };
+
+        const observer = new MutationObserver((mutations) => {
+            for (let mutation of mutations) {
+                if (mutation.type === 'childList') {
+                    adjustCardHeights();
+                }
+            }
+        });
+
+        const config = { childList: true, subtree: true };
+        if (cardRef.current) {
+            observer.observe(cardRef.current.parentElement!, config);
         }
+
+        // Initial adjustment
+        adjustCardHeights();
+
+        // Cleanup observer on component unmount
+        return () => {
+            observer.disconnect();
+        };
     }, []);
 
     return (
