@@ -1,7 +1,7 @@
 // routes/_index/route.tsx (IndexPage)
 import { useLoaderData, json } from "@remix-run/react";
 import { fetchThumbnailUrls } from '~/services/carousel-service.ts';
-import { fetchPopularCourses } from "~/services/carousel-service.ts";
+import { fetchPopularCourses } from "~/services/popular-course-service";
 import Carousel from '~/components/carousel';
 import PopularCard from "~/components/popular-card";
 import "./style.css";

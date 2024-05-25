@@ -3,8 +3,11 @@ import { db } from "~/common/utils/db.server";
 import { courses } from "~/feats/courses/schema";
 import { reviews } from "~/feats/reviews/schema";
 import { gt, eq, sql } from "drizzle-orm";
-import { persons } from "../persons";
+import { persons } from "~/feats/persons";
+import { asynchronousCourses, chapters, lessons } from "~/feats/asynchronous-courses/schema";
+import { synchronousCourses, classes } from "~/feats/synchronous-courses/schema";
 
+// ------------>>> DÉCLARATION DES TYPES <<<------------------------------------------------------------
 // Définition du type pour un cours
 export type Course = {
     id: number;
@@ -32,13 +35,39 @@ export type PopularCourse = {
     id: number;
     title: string;
     description: string;
-    instructor?: string | undefined;
+    instructor?: string;
     thumbnailUrl: string;
     price: number;
     discount: number | null;
     rating?: number;
 };
 
+// Définition des types pour les chapitres et les leçons
+export type Chapter = {
+    id: number;
+    title: string;
+    description: string;
+    lessons: Lesson[];
+};
+
+export type Lesson = {
+    id: number;
+    title: string;
+    description: string;
+    capsuleUrl: string;
+    previewable: boolean;
+    duration: string;
+};
+
+// Définition du type pour les classes
+export type Class = {
+    id: number;
+    startTime: Date;
+    endTime: Date;
+    meetingUrl: string | null;
+};
+
+// ----->>> FONCTIONS POUR LE CAROUSEL <<<---------------------------------------
 // Fonction pour récupérer tous les cours
 export async function getAllCourses(): Promise<Course[]> {
     const result = await db.select().from(courses);
@@ -67,6 +96,7 @@ export async function getDiscountCoursesThumbnails(): Promise<string[]> {
     }
 }
 
+// --------->>> FONCTIONS POUR LES COURS POPULAIRES <<<--------------------------------------
 // Fonction pour récupérer les IDs des cours dont le rating dépasse 4
 async function getCourseIdsWithHighRating(): Promise<number[]> {
     try {
@@ -87,7 +117,7 @@ async function getCourseIdsWithHighRating(): Promise<number[]> {
 }
 
 // Fonction pour récupérer les informations d'un cours en fonction de son ID
-async function getCourseById(courseId: number): Promise<Course | null> {
+export async function getCourseById(courseId: number): Promise<Course | null> {
     try {
         const result = await db.select().from(courses).where(eq(courses.id, courseId));
         // Vérifier s'il y a des résultats
@@ -150,7 +180,7 @@ async function getInstructorIdByCourseId(courseId: number): Promise<number | nul
 }
 
 // Fonction pour récupérer le nom du professeur avec l'ID du cours
-async function getInstructorNameById(instructorId: number): Promise<string | null> {
+async function getInstructorNameById(instructorId: number): Promise<string> {
     try {
         const result = await db
             .select({instructorFirstName: persons.firstName, instructorLastName: persons.lastName})
@@ -164,7 +194,7 @@ async function getInstructorNameById(instructorId: number): Promise<string | nul
         } else {
             // Si aucun résultat trouvé, retourner null
             console.log(`Aucun nom de professeur trouvé pour l'ID ${instructorId}:`);
-            return null;
+            return "";
         }
     } catch (error) {
         console.error("Erreur lors de la récupération du nom du professeur:", error);
@@ -173,7 +203,7 @@ async function getInstructorNameById(instructorId: number): Promise<string | nul
 }
 
 
-// Fonction principale pour récupérer les cours populaires
+// Fonction principale pour récupérer les cours populaires pour les cartes des cours populaires
 export async function getPopularCourses(): Promise<PopularCourse[]> {
     try {
         // Récupérer les IDs des cours avec un rating élevé
@@ -210,6 +240,79 @@ export async function getPopularCourses(): Promise<PopularCourse[]> {
         return popularCourses;
     } catch (error) {
         console.error("Error fetching popular courses:", error);
+        throw error;
+    }
+}
+
+// -------->>> FONCTIONS POUR RÉCUPÉRER LES DÉTAILS DES COURS ----------------------------------------------
+// Fonction pour vérifier si le cours est asynchrone
+export async function isAsynchronousCourse(courseId: number): Promise<boolean> {
+    const result = await db.select().from(asynchronousCourses).where(eq(asynchronousCourses.id, courseId));
+    return result.length > 0;
+}
+
+// Fonction pour vérifier si le cours est synchrone
+export async function isSynchronousCourse(courseId: number): Promise<boolean> {
+    const result = await db.select().from(synchronousCourses).where(eq(synchronousCourses.id, courseId));
+    return result.length > 0;
+}
+
+// Fonction pour récupérer les chapitres et les leçons d'un cours asynchrone
+export async function getChaptersAndLessons(courseId: number): Promise<Chapter[]> {
+    const chaptersResult = await db.select().from(chapters).where(eq(chapters.asynchronousCourseId, courseId));
+    const chaptersWithLessons = await Promise.all(chaptersResult.map(async (chapter) => {
+        const lessonsResult = await db.select().from(lessons).where(eq(lessons.chapterId, chapter.id));
+        return {
+            ...chapter,
+            lessons: lessonsResult
+        };
+    }));
+    return chaptersWithLessons;
+}
+
+// Fonction pour récupérer les classes d'un cours synchrone
+export async function getClasses(courseId: number): Promise<Class[]> {
+    const classesResult = await db.select().from(classes).where(eq(classes.synchronousCourseId, courseId));
+    return classesResult;
+}
+
+// Fonction pour récupérer les avis d'un cours
+async function getReviewsByCourseId(courseId: number): Promise<Review[]> {
+    const reviewsResult = await db.select().from(reviews).where(eq(reviews.courseId, courseId));
+    return reviewsResult;
+}
+
+
+
+//-------------------------------------------------------------------
+// Fonction principale pour récupérer les détails d'un cours populaire en fonction de son id
+export async function getPopularCourseById(courseId: number): Promise<PopularCourse | null> {
+    try {
+        const course = await getCourseById(courseId);
+        const rating = await getRatingAverageByCourseId(courseId);
+        const instructorId = await getInstructorIdByCourseId(courseId);
+        let instructorName;
+        if(instructorId!=null){
+            instructorName = await getInstructorNameById(instructorId);
+        }
+        if(course!=null){
+            const PopularCourse: PopularCourse = {
+                id: course.id,
+                title: course.title,
+                description: course.description,
+                instructor: instructorName,
+                thumbnailUrl: course.thumbnailUrl,
+                price: course.price,
+                discount: course.discount,
+                rating: rating
+            };
+            return PopularCourse;
+        } else {
+            console.log("Error fetching data for course. Course could be null.")
+            return null;
+        }
+    } catch (error) {
+        console.error("Error fetching popular course:", error);
         throw error;
     }
 }

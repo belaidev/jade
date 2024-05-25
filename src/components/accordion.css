@@ -1,0 +1,10 @@
+/* Stylisation de l'accordéon */
+.asynchronous-accordion {
+    width: 100%; /* Largeur maximale */
+  }
+  
+  /* Stylisation des icônes */
+  .arrow-icon {
+    font-size: 24px; /* Taille des icônes */
+  }
+  

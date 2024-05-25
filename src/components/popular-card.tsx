@@ -53,7 +53,7 @@ export default function PopularCard(course: PopularCourse) {
         <div className='contain'>
             <div className='popular-card' ref={cardRef}>
                 <div className='shine'></div>
-                <a href={`/details/${course.id}`} className='card-link'>
+                <a href={`/course-detail/${course.id}`} className='card-link'>
                     <div className="max-w-sm overflow-hidden rounded shadow-lg card-content">
                         <img className="w-full" src={course.thumbnailUrl} alt={course.title} />
                         <div className="card-text-content px-6 py-4">
