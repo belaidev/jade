@@ -1,0 +1,20 @@
+.rating-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .star-rating {
+    display: flex;
+    align-items: center;
+    margin-left: 4px;
+  }
+  
+  .star-rating .star {
+    font-size: 1.2em; /* Taille des étoiles */
+    margin: 1px; /* Espacement entre les étoiles */
+    color: #fdce03; /* Couleur des étoiles */
+  }
+  
+  .star-rating .star.empty {
+    color: #333; /* Couleur des étoiles vides */
+  }

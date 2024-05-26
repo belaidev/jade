@@ -11,23 +11,30 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #fff; /* Ajout d'un fond blanc */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
 
 .course-title {
     font-size: 2em;
     margin-bottom: 10px;
     text-align: center;
+    color: #333; /* Couleur du texte légèrement assombrie */
 }
 
 .course-thumbnail {
     width: 100%;
     height: auto;
     margin-bottom: 20px;
+    border-radius: 8px; /* Coins arrondis pour l'image */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
 
 .course-description {
     font-size: 1.2em;
     margin-bottom: 10px;
+    color: #555; /* Couleur du texte légèrement plus foncée */
 }
 
 .course-instructor,
@@ -36,24 +43,19 @@ body {
 .course-rating {
     font-size: 1em;
     margin-bottom: 5px;
+    color: #777; /* Couleur du texte gris */
 }
 
 .course-structure-section {
     margin-top: 20px;
 }
 
-/* Accordion styles */
-.accordion {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
 /* Chapter styles */
 .chapter-item {
     background-color: #f7f7f7;
-    border-bottom: 1px solid #ddd;
+    border-radius: 8px; /* Coins arrondis */
+    margin-bottom: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
 
 .chapter-trigger {
@@ -65,6 +67,8 @@ body {
     align-items: center;
     font-weight: bold;
     transition: background-color 0.3s ease;
+    border-top-left-radius: 8px; /* Coins arrondis seulement en haut */
+    border-top-right-radius: 8px; /* Coins arrondis seulement en haut */
 }
 
 .chapter-trigger:hover {
@@ -73,14 +77,15 @@ body {
 
 .chapter-content {
     padding: 15px;
-    border-top: 1px solid #ddd;
 }
 
 /* Lesson styles */
 .lesson-item {
     background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    margin-left: 20px;
+    border-radius: 8px; /* Coins arrondis */
+    margin-left: 0; /* Réinitialiser la marge */
+    margin-bottom: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
 
 .lesson-trigger {
@@ -99,23 +104,13 @@ body {
 
 .lesson-content {
     padding: 15px;
-    border-top: 1px solid #ddd;
 }
 
 /* Nested lesson content styles */
 .lesson-item .lesson-content {
     padding: 10px;
-    margin-left: 20px;
+    margin-left: 0; /* Réinitialiser la marge */
     background-color: #fafafa;
     border: 1px solid #ddd;
-}
-
-/* Blue hover effect for accordion items */
-.accordion-item:hover .accordion-trigger {
-    background-color: #e0f7fa;
-}
-
-/* Add transition for smoother effect */
-.accordion-trigger {
-    transition: background-color 0.3s ease;
+    border-radius: 8px; /* Coins arrondis */
 }

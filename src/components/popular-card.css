@@ -20,7 +20,7 @@
     height: auto;
     border: 1px solid rgba(150, 150, 150, 0.2);
     overflow: hidden;
-    margin: 20px auto;
+    margin: 10px auto;
     border-radius: 5px;
     text-align: left;
     line-height: auto;
@@ -76,27 +76,6 @@
 
 .card-text-content {
   flex: 1;
-}
-
-.rating-container {
-  display: flex;
-  align-items: center;
-}
-
-.star-rating {
-  display: flex;
-  align-items: center;
-  margin-left: 4px;
-}
-
-.star-rating .star {
-  font-size: 1.2em; /* Taille des étoiles */
-  margin: 1px; /* Espacement entre les étoiles */
-  color: #fdce03; /* Couleur des étoiles */
-}
-
-.star-rating .star.empty {
-  color: #333; /* Couleur des étoiles vides */
 }
 
 /* Media query pour s'adapter aux petits écrans */

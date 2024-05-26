@@ -7,25 +7,11 @@ import { chapters, lessons } from "~/feats/asynchronous-courses/schema";
 import { classes } from "~/feats/synchronous-courses/schema";
 import { isAsynchronousCourse, isSynchronousCourse } from "~/services/popular-course-category-service";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import "./course-detail.css";
 import { PopularCourse } from "~/feats/asynchronous-courses/functions-said";
-
-// Définition des types pour les chapitres, les leçons et les classes
-export type Chapter = {
-    id: number;
-    title: string;
-    description: string;
-    lessons: Lesson[];
-};
-
-export type Lesson = {
-    id: number;
-    title: string;
-    description: string;
-    capsuleUrl: string;
-    previewable: boolean;
-    duration: string;
-};
+import type { Chapter } from "~/feats/asynchronous-courses/functions-said";
+import StarRating from "~/components/star-rating";
+import "./course-detail.css";
+import "~/components/star-rating.css";
 
 export type Class = {
     id: number;
@@ -73,8 +59,8 @@ export const loader: LoaderFunction = async ({ params }) => {
         const classesResult = await db.select().from(classes).where(eq(classes.synchronousCourseId, courseId));
         const transformedClasses = classesResult.map((classItem) => ({
             id: classItem.id,
-            title: `Class ${classItem.id}`,  // Assurez-vous d'avoir un titre approprié ou remplacez-le par la valeur appropriée
-            description: `From ${classItem.startTime} to ${classItem.endTime}`,  // Assurez-vous d'avoir une description appropriée
+            title: `Class ${classItem.id}`,
+            description: `From ${classItem.startTime} to ${classItem.endTime}`,
             schedule: `${classItem.startTime} - ${classItem.endTime}`,
         }));
         data = { ...data, isSynchronous: true, classes: transformedClasses };
@@ -92,10 +78,15 @@ export default function CourseDetailRoute() {
             <img src={course.thumbnailUrl} alt={course.title} className="course-thumbnail" />
             <p className="course-description">{course.description}</p>
             <p className="course-instructor">Professeur: {course.instructor || 'N/A'}</p>
+            <p className="course-duration">Durée totale du cours: {course.duration} minutes</p>
             <p className="course-price">Prix: ${course.price}</p>
-            {course.discount && <p className="course-discount">Discount: {course.discount}%</p>}
+            {course.discount ? <p className="course-discount">Promotion: -{course.discount }%</p> : null}
             {course.rating !== undefined && (
-                <p className="course-rating">Note: {course.rating} / 5</p>
+                <div className="rating-container">
+                                    <span>Note: </span>
+                                    <StarRating rating={course.rating !== undefined ? course.rating : 0} />
+                                    <span> ({course.rating !== undefined ? course.rating.toFixed(1) : 'No rating'})</span>
+                                </div>
             )}
             <div className="course-structure-section">
                 {isAsynchronous && (

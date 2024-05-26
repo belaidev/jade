@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import StarRating from './star-rating';
 import type { PopularCourse } from '~/feats/asynchronous-courses/functions-said';
 import "./popular-card.css";
+import "./star-rating.css";
 
 export default function PopularCard(course: PopularCourse) {
     const cardRef = useRef<HTMLDivElement>(null);
@@ -60,15 +61,14 @@ export default function PopularCard(course: PopularCourse) {
                             <div className="mb-2 text-base font-bold md:text-lg">{course.title}</div>
                             <div className="text-black-700 text-sm md:text-base">
                                 <p>Professeur: {course.instructor}</p>
-                                <p>Durée: {/* Remplir la durée ici si disponible */}</p>
+                                <p>Durée: {course.duration} minutes</p>
                                 <p>Prix: ${course.price}</p>
-                                {course.discount ? <p>Discount: {course.discount}%</p> : null}
+                                {course.discount ? <p>Promotion: -{course.discount}%</p> : null}
                                 <div className="rating-container">
                                     <span>Note: </span>
                                     <StarRating rating={course.rating !== undefined ? course.rating : 0} />
                                     <span> ({course.rating !== undefined ? course.rating.toFixed(1) : 'No rating'})</span>
                                 </div>
-                                <p>Id du cours: {course.id}</p>
                             </div>
                         </div>
                     </div>

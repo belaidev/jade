@@ -36,6 +36,7 @@ export type PopularCourse = {
     title: string;
     description: string;
     instructor?: string;
+    duration: number;
     thumbnailUrl: string;
     price: number;
     discount: number | null;
@@ -202,6 +203,62 @@ async function getInstructorNameById(instructorId: number): Promise<string> {
     }
 }
 
+async function getSynchronousCourseDuration(courseId: number): Promise<number> {
+    const result = await db.select().from(classes).where(eq(classes.synchronousCourseId, courseId));
+    
+    let totalDuration = 0;
+    
+    result.forEach((classItem) => {
+        const startTime = new Date(classItem.startTime).getTime();
+        const endTime = new Date(classItem.endTime).getTime();
+        const duration = (endTime - startTime) / (1000 * 60); // Durée en minutes
+        totalDuration += duration;
+    });
+
+    return totalDuration;
+}
+
+async function getChaptersByCourseId(courseId: number): Promise<number[]> {
+    const result = await db.select().from(chapters).where(eq(chapters.asynchronousCourseId, courseId));
+    return result.map(chapter => chapter.id);
+}
+
+async function getAsynchronousCourseDuration(courseId: number): Promise<number> {
+    const chapterIds = await getChaptersByCourseId(courseId);
+
+    let totalDuration = 0;
+
+    for (const chapterId of chapterIds) {
+        const lessonData = await db.select().from(lessons).where(eq(lessons.chapterId, chapterId));
+        
+        if(lessonData!=undefined){
+        lessonData.forEach((lesson) => {
+            const durationParts = lesson.duration.split(':');
+            let durationInMinutes = 0;
+            if(durationParts[0]!=undefined&&durationParts[1]!=undefined) {
+                durationInMinutes = parseInt(durationParts[0]) * 60 + parseInt(durationParts[1]);
+            } else {
+                durationInMinutes = 0;
+            }
+            totalDuration += durationInMinutes;
+        });
+        } else {
+            return 0;
+        }
+    }
+
+    return totalDuration;
+}
+
+async function getCourseDuration(courseId: number): Promise<number> {
+    if (await isAsynchronousCourse(courseId)) {
+        return await getAsynchronousCourseDuration(courseId);
+    } else if (await isSynchronousCourse(courseId)) {
+        return await getSynchronousCourseDuration(courseId);
+    } else {
+        throw new Error('Course type not found or invalid course ID');
+    }
+}
 
 // Fonction principale pour récupérer les cours populaires pour les cartes des cours populaires
 export async function getPopularCourses(): Promise<PopularCourse[]> {
@@ -221,7 +278,7 @@ export async function getPopularCourses(): Promise<PopularCourse[]> {
             if(instructorId!=null){
                 instructorName = await getInstructorNameById(instructorId);
             }
-            
+            const duration = await getCourseDuration(courseId);
             // Si le cours et la note sont disponibles, ajouter au tableau des cours populaires
             if (course && rating && instructorId && instructorName !== null) {
                 popularCourses.push({
@@ -229,6 +286,7 @@ export async function getPopularCourses(): Promise<PopularCourse[]> {
                     title: course.title,
                     description: course.description,
                     instructor: instructorName,
+                    duration: duration,
                     thumbnailUrl: course.thumbnailUrl,
                     price: course.price,
                     discount: course.discount,
@@ -295,13 +353,15 @@ export async function getPopularCourseById(courseId: number): Promise<PopularCou
         if(instructorId!=null){
             instructorName = await getInstructorNameById(instructorId);
         }
+        const duration = await getCourseDuration(courseId);
         if(course!=null){
             const PopularCourse: PopularCourse = {
                 id: course.id,
                 title: course.title,
                 description: course.description,
                 instructor: instructorName,
-                thumbnailUrl: course.thumbnailUrl,
+                duration: duration,
+                thumbnailUrl: course.thumbnailUrl || '/img/img-default',
                 price: course.price,
                 discount: course.discount,
                 rating: rating
