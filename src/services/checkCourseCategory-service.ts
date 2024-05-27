@@ -1,7 +1,7 @@
 import { db } from "~/common/utils/db.server";
 import { eq } from "drizzle-orm";
-import { asynchronousCourses, chapters, lessons } from "~/feats/asynchronous-courses/schema";
-import { synchronousCourses, classes } from "~/feats/synchronous-courses/schema";
+import { asynchronousCourses } from "~/feats/asynchronous-courses/schema";
+import { synchronousCourses } from "~/feats/synchronous-courses/schema";
 
 // Fonction pour vérifier si le cours est asynchrone
 export async function isAsynchronousCourse(courseId: number): Promise<boolean> {

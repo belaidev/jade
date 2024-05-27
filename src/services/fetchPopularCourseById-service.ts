@@ -1,4 +1,3 @@
-// services/detail-cours-populaire-service.ts
 import { getPopularCourseById, PopularCourse } from '~/feats/asynchronous-courses/functions-said';
 
 export async function fetchPopularCourseById(id: number): Promise<PopularCourse | null> {

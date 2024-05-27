@@ -1,24 +1,12 @@
 import { json, LoaderFunction } from "@remix-run/node";
-import { fetchPopularCourseById } from "~/services/popular-course-details-service";
+import { fetchPopularCourseById } from "~/services/fetchPopularCourseById-service";
 import { useLoaderData } from "@remix-run/react";
-import { eq } from "drizzle-orm";
-import { db } from "~/common/utils/db.server";
-import { chapters, lessons } from "~/feats/asynchronous-courses/schema";
-import { classes } from "~/feats/synchronous-courses/schema";
-import { isAsynchronousCourse, isSynchronousCourse } from "~/services/popular-course-category-service";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { PopularCourse } from "~/feats/asynchronous-courses/functions-said";
-import type { Chapter } from "~/feats/asynchronous-courses/functions-said";
+import type { PopularCourse, Chapter, Class } from "~/feats/asynchronous-courses/functions-said";
 import StarRating from "~/components/star-rating";
 import "./course-detail.css";
 import "~/components/star-rating.css";
-
-export type Class = {
-    id: number;
-    title: string;
-    description: string;
-    schedule: string;
-};
+import { checkCourseCategory, fetchAsynchronousCourseData, fetchSynchronousCourseData } from "~/services/fetchCourseStructure-service";
 
 type LoaderData = {
     course: PopularCourse;
@@ -45,24 +33,13 @@ export const loader: LoaderFunction = async ({ params }) => {
 
     let data: LoaderData = { course, isAsynchronous: false, isSynchronous: false, chaptersWithLessons: [], classes: [] };
 
-    if (await isAsynchronousCourse(courseId)) {
-        const chaptersResult = await db.select().from(chapters).where(eq(chapters.asynchronousCourseId, courseId));
-        const chaptersWithLessons = await Promise.all(chaptersResult.map(async (chapter) => {
-            const lessonsResult = await db.select().from(lessons).where(eq(lessons.chapterId, chapter.id));
-            return {
-                ...chapter,
-                lessons: lessonsResult
-            };
-        }));
+    const { isAsynchronous, isSynchronous } = await checkCourseCategory(courseId);
+
+    if (isAsynchronous) {
+        const chaptersWithLessons = await fetchAsynchronousCourseData(courseId);
         data = { ...data, isAsynchronous: true, chaptersWithLessons };
-    } else if (await isSynchronousCourse(courseId)) {
-        const classesResult = await db.select().from(classes).where(eq(classes.synchronousCourseId, courseId));
-        const transformedClasses = classesResult.map((classItem) => ({
-            id: classItem.id,
-            title: `Class ${classItem.id}`,
-            description: `From ${classItem.startTime} to ${classItem.endTime}`,
-            schedule: `${classItem.startTime} - ${classItem.endTime}`,
-        }));
+    } else if (isSynchronous) {
+        const transformedClasses = await fetchSynchronousCourseData(courseId);
         data = { ...data, isSynchronous: true, classes: transformedClasses };
     }
 
@@ -115,16 +92,19 @@ export default function CourseDetailRoute() {
                 {isSynchronous && (
                     <Accordion type="multiple">
                         {classes.map((classItem) => (
-                            <AccordionItem key={classItem.id} value={`class-${classItem.id}`} className="chapter-item">
-                                <AccordionTrigger className="chapter-trigger">{classItem.title}</AccordionTrigger>
+                            <AccordionItem key={classItem.id} value={`Séance - ${classItem.id}`} className="chapter-item">
+                                <AccordionTrigger className="chapter-trigger"><strong>Séance -</strong>&nbsp;{classItem.id}</AccordionTrigger>
                                 <AccordionContent className="chapter-content">
-                                    <p>{classItem.description}</p>
-                                    <p><strong>Schedule :</strong> {classItem.schedule}</p>
+                                    <p><strong>Horraire :</strong> {classItem.startTime} - {classItem.endTime}</p>
                                 </AccordionContent>
                             </AccordionItem>
                         ))}
                     </Accordion>
                 )}
+            </div>
+
+            <div className="commande-section">
+                <button className="btn">Ajouter</button>
             </div>
         </div>
     );
