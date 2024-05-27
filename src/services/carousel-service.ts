@@ -1,5 +1,5 @@
 // services/carousel-service.ts
-import { getDiscountCoursesThumbnails } from "~/feats/asynchronous-courses/functions-said";
+import { getDiscountCoursesThumbnails } from "~/feats/courses/functions-said";
 
 // Fonction pour récupérer les URLs d'images des cours en promotion
 export async function fetchThumbnailUrls(): Promise<string[]> {

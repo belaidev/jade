@@ -1,4 +1,4 @@
-// feats/asynchronous-courses/functions-said.ts
+// feats/courses/functions-said.ts
 import { db } from "~/common/utils/db.server";
 import { courses } from "~/feats/courses/schema";
 import { reviews } from "~/feats/reviews/schema";

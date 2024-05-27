@@ -1,4 +1,4 @@
-import { getPopularCourses, PopularCourse } from "~/feats/asynchronous-courses/functions-said";
+import { getPopularCourses, PopularCourse } from "~/feats/courses/functions-said";
 
 // Fonction pour récupérer les informations des cours populaires
 export async function fetchPopularCourses(): Promise<PopularCourse[]> {

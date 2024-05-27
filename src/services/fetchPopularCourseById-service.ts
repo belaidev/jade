@@ -1,4 +1,4 @@
-import { getPopularCourseById, PopularCourse } from '~/feats/asynchronous-courses/functions-said';
+import { getPopularCourseById, PopularCourse } from '~/feats/courses/functions-said';
 
 export async function fetchPopularCourseById(id: number): Promise<PopularCourse | null> {
     try {

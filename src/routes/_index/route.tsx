@@ -5,7 +5,7 @@ import { fetchPopularCourses } from "~/services/fetchPopularCourse-service";
 import Carousel from '~/components/carousel';
 import PopularCard from "~/components/popular-card";
 import "./style.css";
-import type { PopularCourse } from '~/feats/asynchronous-courses/functions-said';
+import type { PopularCourse } from '~/feats/courses/functions-said';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire } from "@fortawesome/free-solid-svg-icons";
 
