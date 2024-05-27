@@ -331,7 +331,13 @@ export async function getChaptersAndLessons(courseId: number): Promise<Chapter[]
 // Fonction pour récupérer les classes d'un cours synchrone
 export async function getClasses(courseId: number): Promise<Class[]> {
     const classesResult = await db.select().from(classes).where(eq(classes.synchronousCourseId, courseId));
-    return classesResult;
+    const transformedClasses = classesResult.map((classItem) => ({
+        id: classItem.id,
+        startTime: classItem.startTime,
+        endTime: classItem.endTime,
+        meetingUrl: classItem.meetingUrl,
+    }));
+    return transformedClasses;
 }
 
 // Fonction pour récupérer les avis d'un cours
