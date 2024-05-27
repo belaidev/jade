@@ -211,7 +211,7 @@ async function getSynchronousCourseDuration(courseId: number): Promise<number> {
     result.forEach((classItem) => {
         const startTime = new Date(classItem.startTime).getTime();
         const endTime = new Date(classItem.endTime).getTime();
-        const duration = (endTime - startTime) / (1000 * 60); // Durée en minutes
+        const duration = (endTime - startTime) / (1000); // Durée en secondes
         totalDuration += duration;
     });
 
@@ -236,7 +236,7 @@ async function getAsynchronousCourseDuration(courseId: number): Promise<number> 
             const durationParts = lesson.duration.split(':');
             let durationInMinutes = 0;
             if(durationParts[0]!=undefined&&durationParts[1]!=undefined) {
-                durationInMinutes = parseInt(durationParts[0]) * 60 + parseInt(durationParts[1]);
+                durationInMinutes = parseInt(durationParts[0]) * 60 * 60 + parseInt(durationParts[1]);
             } else {
                 durationInMinutes = 0;
             }

@@ -7,6 +7,7 @@ import StarRating from "~/components/star-rating";
 import "./course-detail.css";
 import "~/components/star-rating.css";
 import { checkCourseCategory, fetchAsynchronousCourseData, fetchSynchronousCourseData } from "~/services/fetchCourseStructure-service";
+import { formatDuration } from "~/services/formatDuration-service";
 
 type LoaderData = {
     course: PopularCourse;
@@ -55,7 +56,7 @@ export default function CourseDetailRoute() {
             <img src={course.thumbnailUrl} alt={course.title} className="course-thumbnail" />
             <p className="course-description">{course.description}</p>
             <p className="course-instructor">Professeur: {course.instructor || 'N/A'}</p>
-            <p className="course-duration">Durée totale du cours: {course.duration} minutes</p>
+            <p className="course-duration">Durée totale du cours: {formatDuration(course.duration)}</p>
             <p className="course-price">Prix: ${course.price}</p>
             {course.discount ? <p className="course-discount">Promotion: -{course.discount }%</p> : null}
             {course.rating !== undefined && (

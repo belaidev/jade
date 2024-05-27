@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import StarRating from './star-rating';
 import type { PopularCourse } from '~/feats/courses/functions-said';
+import { formatDuration } from "~/services/formatDuration-service";
 import "./popular-card.css";
 import "./star-rating.css";
 
@@ -61,7 +62,7 @@ export default function PopularCard(course: PopularCourse) {
                             <div className="mb-2 text-base font-bold md:text-lg">{course.title}</div>
                             <div className="text-black-700 text-sm md:text-base">
                                 <p>Professeur: {course.instructor}</p>
-                                <p>Durée: {course.duration} minutes</p>
+                                <p>Durée: {formatDuration(course.duration)}</p>
                                 <p>Prix: ${course.price}</p>
                                 {course.discount ? <p>Promotion: -{course.discount}%</p> : null}
                                 <div className="rating-container">
