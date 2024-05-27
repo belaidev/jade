@@ -234,13 +234,13 @@ async function getAsynchronousCourseDuration(courseId: number): Promise<number> 
         if(lessonData!=undefined){
         lessonData.forEach((lesson) => {
             const durationParts = lesson.duration.split(':');
-            let durationInMinutes = 0;
-            if(durationParts[0]!=undefined&&durationParts[1]!=undefined) {
-                durationInMinutes = parseInt(durationParts[0]) * 60 * 60 + parseInt(durationParts[1]);
+            let durationInSeconds = 0;
+            if(durationParts[0]!=undefined&&durationParts[1]!=undefined&&durationParts[2]!=undefined) {
+                durationInSeconds = parseInt(durationParts[0]) * 3600 + parseInt(durationParts[1]) * 60 + parseInt(durationParts[2]);
             } else {
-                durationInMinutes = 0;
+                durationInSeconds = 0;
             }
-            totalDuration += durationInMinutes;
+            totalDuration += durationInSeconds;
         });
         } else {
             return 0;
