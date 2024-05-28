@@ -5,6 +5,7 @@ import IconsResolver from "unplugin-icons/resolver";
 import Icons from "unplugin-icons/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import envOnly from "vite-env-only"
 
 installGlobals();
 
@@ -18,9 +19,11 @@ export default defineConfig({
 					prefix: false,
 					enabledCollections: ["mdi"],
 					extension: "jsx"
-				})
+				}),
+
 			]
 		}),
-		Icons({ compiler: "jsx", jsx: "react", scale: 1 })
+		Icons({ compiler: "jsx", jsx: "react", scale: 1 }),
+		envOnly()
 	]
 });
