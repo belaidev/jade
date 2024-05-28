@@ -41,6 +41,13 @@ export const Layout: LayoutComponent = ({ children }: { children: ReactNode }) =
 
 							{/* Navigation links */}
 							<ul className="flex gap-2">
+								{/* Formation page*/}
+								<li>
+									<a className="flex items-center p-2 font-medium" href="/listCours">
+										Formation list
+									</a>
+								</li>
+
 								<li>
 									<a className="flex items-center p-2 font-medium" href="/panier">
 										0&nbsp;

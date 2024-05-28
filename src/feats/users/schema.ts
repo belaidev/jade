@@ -1,5 +1,5 @@
 import { int, mysqlTable, unique, varchar } from "drizzle-orm/mysql-core";
-import { entityCols } from "~/common/models";
+import { entityCols } from "~/common/models/Entity";
 
 export const users = mysqlTable("Users", {
 	...entityCols

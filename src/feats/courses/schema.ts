@@ -1,6 +1,7 @@
 import { int, mysqlTable, varchar } from "drizzle-orm/mysql-core";
-import { describableCols, entityCols } from "~/common/models";
-import { instructors } from "~/feats/instructors";
+import { describableCols } from "~/common/models/Describable";
+import { entityCols } from "~/common/models/Entity";
+import { instructors } from "../instructors/schema";
 
 export const courses = mysqlTable("Courses", {
 	...entityCols,
