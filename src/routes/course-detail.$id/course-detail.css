@@ -1,116 +1,116 @@
 /* Global styles */
 body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Course detail container */
 .course-detail {
-	max-width: 800px;
-	margin: 0 auto;
-	padding: 20px;
-	background-color: #fff; /* Ajout d'un fond blanc */
-	border-radius: 8px; /* Coins arrondis */
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff; /* Ajout d'un fond blanc */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
 
 .course-title {
-	font-size: 2em;
-	margin-bottom: 10px;
-	text-align: center;
-	color: #333; /* Couleur du texte légèrement assombrie */
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333; /* Couleur du texte légèrement assombrie */
 }
 
 .course-thumbnail {
-	width: 100%;
-	height: auto;
-	margin-bottom: 20px;
-	border-radius: 8px; /* Coins arrondis pour l'image */
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px; /* Coins arrondis pour l'image */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
 
 .course-description {
-	font-size: 1.2em;
-	margin-bottom: 10px;
-	color: #555; /* Couleur du texte légèrement plus foncée */
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #555; /* Couleur du texte légèrement plus foncée */
 }
 
 .course-instructor,
 .course-price,
 .course-discount,
 .course-rating {
-	font-size: 1em;
-	margin-bottom: 5px;
-	color: #777; /* Couleur du texte gris */
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: #777; /* Couleur du texte gris */
 }
 
 .course-structure-section {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 /* Chapter styles */
 .chapter-item {
-	background-color: #f7f7f7;
-	border-radius: 8px; /* Coins arrondis */
-	margin-bottom: 10px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    background-color: #f7f7f7;
+    border-radius: 8px; /* Coins arrondis */
+    margin-bottom: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
 
 .chapter-trigger {
-	background-color: #f7f7f7;
-	padding: 10px 15px;
-	cursor: pointer;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	font-weight: bold;
-	transition: background-color 0.3s ease;
-	border-top-left-radius: 8px; /* Coins arrondis seulement en haut */
-	border-top-right-radius: 8px; /* Coins arrondis seulement en haut */
+    background-color: #f7f7f7;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border-top-left-radius: 8px; /* Coins arrondis seulement en haut */
+    border-top-right-radius: 8px; /* Coins arrondis seulement en haut */
 }
 
 .chapter-trigger:hover {
-	background-color: #e0f7fa;
+    background-color: #e0f7fa;
 }
 
 .chapter-content {
-	padding: 15px;
+    padding: 15px;
 }
 
 /* Lesson styles */
 .lesson-item {
-	background-color: #fff;
-	border-radius: 8px; /* Coins arrondis */
-	margin-left: 0; /* Réinitialiser la marge */
-	margin-bottom: 10px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    background-color: #fff;
+    border-radius: 8px; /* Coins arrondis */
+    margin-left: 0; /* Réinitialiser la marge */
+    margin-bottom: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
 
 .lesson-trigger {
-	background-color: #fff;
-	padding: 10px 15px;
-	cursor: pointer;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	transition: background-color 0.3s ease;
+    background-color: #fff;
+    padding: 10px 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
 }
 
 .lesson-trigger:hover {
-	background-color: #e0f7fa;
+    background-color: #e0f7fa;
 }
 
 .lesson-content {
-	padding: 15px;
+    padding: 15px;
 }
 
 /* Nested lesson content styles */
 .lesson-item .lesson-content {
-	padding: 10px;
-	margin-left: 0; /* Réinitialiser la marge */
-	background-color: #fafafa;
-	border: 1px solid #ddd;
-	border-radius: 8px; /* Coins arrondis */
+    padding: 10px;
+    margin-left: 0; /* Réinitialiser la marge */
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Coins arrondis */
 }
