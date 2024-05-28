@@ -9,7 +9,7 @@ export default function Card({ course }: { course: Course }) {
 
 
 	return (
-		<a href={`/details/${course.id}`}>
+		<a href={`/course-detail/${course.id}`} className='card-link'>
 			<div className="max-w-sm overflow-hidden rounded shadow-lg">
 				<img className="w-full" src={course.thumbnailUrl} alt={course.title} />
 				<div className="px-6 py-4">

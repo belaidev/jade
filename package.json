@@ -16,17 +16,23 @@
 		"node": ">=21.0.0"
 	},
 	"dependencies": {
+		"@radix-ui/react-accordion": "^1.1.2",
 		"@remix-run/node": "^2.9.1",
 		"@remix-run/react": "^2.9.1",
 		"@remix-run/serve": "^2.9.1",
 		"autosize": "^6.0.1",
+		"class-variance-authority": "^0.7.0",
+		"clsx": "^2.1.1",
 		"drizzle-orm": "^0.30.9",
 		"http-status-codes": "^2.3.0",
 		"isbot": "^5.1.5",
 		"lodash": "^4.17.21",
+		"lucide-react": "^0.379.0",
 		"mysql2": "^3.9.7",
 		"react": "^18.3.0",
 		"react-dom": "^18.3.0",
+		"tailwind-merge": "^2.3.0",
+		"tailwindcss-animate": "^1.0.7",
 		"tsx": "^4.10.5"
 	},
 	"devDependencies": {

@@ -1,17 +1,12 @@
-import aspectRatio from "@tailwindcss/aspect-ratio";
-import containerQueries from "@tailwindcss/container-queries";
-import forms from "@tailwindcss/forms";
-import typography from "@tailwindcss/typography";
-import type { Config } from "tailwindcss"
-
-const config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -31,22 +26,6 @@ const config = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-        },
-        "primary-1": {
-          DEFAULT: "#047857",
-          foreground: "#047857",
-        },
-        "on-primary-1": {
-          DEFAULT: "#d1fae5",
-          foreground: "#d1fae5",
-        },
-        "primary-2": {
-          DEFAULT: "#d1fae5",
-          foreground: "#d1fae5",
-        },
-        "on-primary-2": {
-          DEFAULT: "#047857",
-          foreground: "#047857",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -73,21 +52,6 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      fontSize: {
-				"9xl": "8rem",
-				"8xl": "6rem",
-				"7xl": "4.5rem",
-				"6xl": "3.75rem",
-				"5xl": "3rem",
-				"4xl": "2.25rem",
-				"3xl": "1.875rem",
-				"2xl": "1.5rem",
-				xl: "1.25rem",
-				lg: "1.125rem",
-				base: "1rem",
-				sm: "0.875rem",
-				xs: "0.75rem"
-			},
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -108,14 +72,6 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
-    fontFamily: {
-			display: "'Noto Sans Display', 'Noto Color Emoji', 'Noto Emoji', sans-serif",
-			head: "'Noto Serif', 'Noto Color Emoji', 'Noto Emoji', serif",
-			body: "'Noto Sans', 'Noto Color Emoji', 'Noto Emoji', sans-serif",
-			code: "'Noto Sans Mono', 'Noto Color Emoji', 'Noto Emoji', mono"
-		},
   },
-  plugins: [require("tailwindcss-animate"), typography, forms, aspectRatio, containerQueries],
-} satisfies Config
-
-export default config
+  plugins: [require("tailwindcss-animate")],
+}
