@@ -1,5 +1,5 @@
 import { isAsynchronousCourse, isSynchronousCourse } from "~/services/checkCourseCategory-service";
-import { getChaptersAndLessons, getClasses } from "~/feats/courses/functions-said";
+import { getChaptersAndLessons, getClasses } from "~/services/courseData-service";
 
 export const fetchAsynchronousCourseData = async (courseId: number) => {
     const chaptersWithLessons = await getChaptersAndLessons(courseId);
