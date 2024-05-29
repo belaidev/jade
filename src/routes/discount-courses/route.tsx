@@ -1,17 +1,25 @@
-import { useLoaderData } from "@remix-run/react";
-import { json } from "drizzle-orm/mysql-core";
+import { useLoaderData, json } from "@remix-run/react";
+import PopularCard from "~/components/popular-card";
 import { PopularCourse } from "~/services/courseData-service";
-import { fetchPopularCourses } from "~/services/fetchPopularCourses-service";
+import { fetchDiscountCourses } from "~/services/discountCourses-service";
 
 interface LoaderData {
-    popularCourses: PopularCourse[];
+    discountCourses: PopularCourse[];
 }
 
 export async function loader() {
-    const popularCourses = await fetchPopularCourses();
-    return json<LoaderData>({ popularCourses });
+    const discountCourses = await fetchDiscountCourses();
+    return json<LoaderData>({ discountCourses });
 }
 
 export default function discountCourses() {
-    const discountCourses = useLoaderData<LoaderData>();
+    const { discountCourses } = useLoaderData<LoaderData>();
+
+    return <main>
+                <div className="popular-card-section">
+                    {discountCourses.map((course) => (
+                            <PopularCard key={course.id} {...course} />
+                        ))}
+                </div>
+            </main>
 }

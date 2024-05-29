@@ -36,7 +36,7 @@ export default function IndexPage() {
 					<div className="carousel-section">
                     <Carousel images={images} />
                 	</div>
-                    <a href="#" className="promotion-link">Voir toutes les promotions</a>
+                    <a href="/discount-courses" className="promotion-link">Voir toutes les promotions</a>
                 </div>
 
                 <div className="popular-section w-full">
