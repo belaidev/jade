@@ -20,7 +20,20 @@ export default function Courses() {
 
 	useEffect(() => {
 		// Fonction de tri des cours
-		const sortCourses = (sortBy: string, courses: ({ id: number; title: string; description: string; instructorId: number; thumbnailUrl: string; price: number; discount: number | null; type: "sync" | "async"; startTime: string; } & { totalDuration?: string | undefined; })[]) => {
+		const sortCourses = (
+			sortBy: string,
+			courses: ({
+				id: number;
+				title: string;
+				description: string;
+				instructorName: string;
+				thumbnailUrl: string;
+				price: number;
+				discount: number | null;
+				type: "sync" | "async";
+				startTime: string;
+			} & { totalDuration?: string | undefined })[]
+		) => {
 			switch (sortBy) {
 				case "A-Z":
 					return [...courses].sort((a, b) => a.title.localeCompare(b.title));
@@ -43,19 +56,23 @@ export default function Courses() {
 	};
 
 	return (
-		<div>
+		<div className="container mx-auto p-4">
 			{/* Sélecteur de type de filtre */}
-			<select value={sortBy} onChange={handleChange}>
-				<option value="">Trier par</option>
-				<option value="A-Z">Titre (A-Z)</option>
-				<option value="price-asc">Prix (croissant)</option>
-				<option value="price-desc">Prix (décroissant)</option>
-			</select>
+			<div className="mb-4">
+				<select value={sortBy} onChange={handleChange} className="form-select mt-1 block">
+					<option value="">Trier par</option>
+					<option value="A-Z">Titre (A-Z)</option>
+					<option value="price-asc">Prix (croissant)</option>
+					<option value="price-desc">Prix (décroissant)</option>
+				</select>
+			</div>
 
 			{/* Liste des cours filtrés */}
-			{sortedCourses.map((course: CourseCard) => (
-				<Card course={course} key={course.id} />
-			))}
+			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+				{sortedCourses.map((course: CourseCard) => (
+					<Card course={course} key={course.id} />
+				))}
+			</div>
 		</div>
 	);
 }
