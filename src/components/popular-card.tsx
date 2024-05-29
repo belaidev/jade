@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import StarRating from './star-rating';
-import type { PopularCourse } from '~/feats/courses/functions-said';
+import type { PopularCourse } from '~/services/courseData-service';
 import { formatDuration } from "~/services/formatDuration-service";
 import "./popular-card.css";
 import "./star-rating.css";

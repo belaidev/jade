@@ -1,12 +1,9 @@
-import { Course, CourseCardSync, CourseCardAsync  } from "./functions";
+import { CourseCard, CourseCardSync, CourseCardAsync  } from "~/services/allCoursesCards-service";
 
+export default function Card({ course }: { course: CourseCard }) {
 
-
-export default function Card({ course }: { course: Course }) {
-
-	const isSyncCourse = (course: Course): course is CourseCardSync => course.type === "sync";
-	const isAsyncCourse = (course: Course): course is CourseCardAsync => course.type === "async";
-
+	const isSyncCourse = (course: CourseCard): course is CourseCardSync => course.type === "sync";
+	const isAsyncCourse = (course: CourseCard): course is CourseCardAsync => course.type === "async";
 
 	return (
 		<a href={`/course-detail/${course.id}`} className='card-link'>

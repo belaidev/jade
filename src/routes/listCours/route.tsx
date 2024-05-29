@@ -1,23 +1,22 @@
 import { json, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import Card from "~/feats/courses/component";
-import { Course, getAllCours } from "~/feats/courses/functions";
+import Card from "~/components/card";
+import { CourseCard, getAllCourses } from "~/services/allCoursesCards-service";
 
 interface LoaderData {
-	courses: Course[];
+	courses: CourseCard[];
 }
 
 // Fonction utilitaire pour reconvertir les chaînes en dates
-function parseCourseDates(course: Partial<Course>): Course {
+function parseCourseDates(course: Partial<CourseCard>): CourseCard {
 	if (course.startTime) {
 		course.startTime = new Date(course.startTime);
 	}
-
-	return course as Course;
+	return course as CourseCard;
 }
 
 export async function loader() {
-	let courses = await getAllCours();
+	let courses = await getAllCourses();
 	courses = courses.map(parseCourseDates); // Convertir les dates
 	return json<LoaderData>({ courses });
 }
@@ -26,11 +25,11 @@ export default function Courses() {
 	console.log("page montée");
 	const { courses } = useLoaderData<LoaderData>();
 	const [sortBy, setSortBy] = useState<string>("");
-	const [sortedCourses, setSortedCourses] = useState<Course[]>([]);
+	const [sortedCourses, setSortedCourses] = useState<CourseCard[]>([]);
 
 	useEffect(() => {
 		// Fonction de tri des cours
-		const sortCourses = (sortBy: string, courses: Course[]) => {
+		const sortCourses = (sortBy: string, courses: CourseCard[]) => {
 			switch (sortBy) {
 				case "A-Z":
 					return [...courses].sort((a, b) => a.title.localeCompare(b.title));
@@ -63,7 +62,7 @@ export default function Courses() {
 			</select>
 
 			{/* Liste des cours filtrés */}
-			{sortedCourses.map((course: Course) => (
+			{sortedCourses.map((course: CourseCard) => (
 				<Card course={course} key={course.id} />
 			))}
 		</div>

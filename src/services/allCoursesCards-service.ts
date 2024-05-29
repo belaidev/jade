@@ -1,10 +1,12 @@
 import { eq } from "drizzle-orm";
 import { db } from "~/common/utils/db.server";
-import { asynchronousCourses, chapters, lessons } from "../asynchronous-courses/schema";
-import { classes, synchronousCourses } from "../synchronous-courses/schema";
-import { courses } from "./schema";
+import { asynchronousCourses, chapters, lessons } from "~/feats/asynchronous-courses/schema";
+import { classes, synchronousCourses } from "~/feats/synchronous-courses/schema";
+import { courses } from "~/feats/courses/schema";
+import { formatDuration } from "~/services/formatDuration-service";
+import { getAsynchronousCourseDuration } from "./courseDuration-service";
 
-export type Course = {
+export type CourseCard = {
 	id: number;
 	title: string;
 	description: string;
@@ -17,26 +19,26 @@ export type Course = {
 	startTime?: Date;
 };
 
-export type CourseCardAsync = Course & {
+export type CourseCardAsync = CourseCard & {
 	chapterId: number;
 	capsuleUrl: string;
 	previewable: boolean;
 	duration: string;
 };
 
-export type CourseCardSync = Course & {
+export type CourseCardSync = CourseCard & {
 	synchronousCourseId: number;
 	startTime: Date;
 	endTime: Date;
 	meetingUrl: string | null;
 };
 
-export async function getAllCours() {
+export async function getAllCourses() {
 	const result = await db.select().from(courses);
 
 	const coursesWithDetails = await Promise.all(
 		result.map(async (course) => {
-			let details: Partial<Course> = {};
+			let details: Partial<CourseCard> = {};
 
 			const asyncCourse = await db
 				.select()
@@ -49,15 +51,7 @@ export async function getAllCours() {
 			if (asyncCourse.length > 0) {
 				details.type = "async";
 				// Calculer la durée totale des leçons asynchrones
-				const totalDuration = asyncCourse.reduce((acc, course) => {
-					if (course.Lessons && course.Lessons.duration) {
-						// Convertir la durée de chaque leçon en secondes et l'ajouter à l'accumulateur
-						const durationInSeconds = parseDuration(course.Lessons.duration);
-						return acc + durationInSeconds;
-					}
-					return acc;
-				}, 0);
-
+				const totalDuration = await getAsynchronousCourseDuration(course.id);
 				// Ajouter la durée totale au détail du cours
 				details.totalDuration = formatDuration(totalDuration);
 				console.log("totalDuration:", details.totalDuration )
@@ -85,23 +79,8 @@ export async function getAllCours() {
 					}
 				}
 			console.log("details:", details)
-			return { ...course, ...details } as Course;
-
+			return { ...course, ...details } as CourseCard;
 		})
 	);
-
 	return coursesWithDetails;
-}
-
-function parseDuration(duration: string): number {
-	const [hours = 0, minutes = 0, seconds = 0] = duration.split(":").map(Number);
-	return hours * 3600 + minutes * 60 + seconds;
-}
-
-// Fonction pour formater une durée en secondes en HH:MM:SS
-function formatDuration(durationInSeconds: number): string {
-	const hours = Math.floor(durationInSeconds / 3600);
-	const minutes = Math.floor((durationInSeconds % 3600) / 60);
-	const seconds = durationInSeconds % 60;
-	return `${hours}:${minutes}:${seconds}`;
 }

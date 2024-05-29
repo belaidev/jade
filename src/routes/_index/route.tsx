@@ -1,13 +1,12 @@
-// routes/_index/route.tsx (IndexPage)
 import { useLoaderData, json } from "@remix-run/react";
-import { fetchThumbnailUrls } from '~/services/carousel-service.ts';
-import { fetchPopularCourses } from "~/services/fetchPopularCourse-service";
+import { fetchDiscountThumbnailUrls } from '~/services/carousel-service.ts';
+import { fetchPopularCourses } from "~/services/fetchPopularCourses-service";
 import Carousel from '~/components/carousel';
 import PopularCard from "~/components/popular-card";
-import "./style.css";
-import type { PopularCourse } from '~/feats/courses/functions-said';
+import type { PopularCourse } from '~/services/courseData-service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire } from "@fortawesome/free-solid-svg-icons";
+import "./style.css";
 
 interface LoaderData {
     images: string[];
@@ -15,7 +14,7 @@ interface LoaderData {
 }
 
 export async function loader() {
-    const rawImages = await fetchThumbnailUrls();
+    const rawImages = await fetchDiscountThumbnailUrls();
 	const images = rawImages.slice(0, 10); // affichage limité à 10 cours en promotion
     const popularCourses = await fetchPopularCourses();
     return json<LoaderData>({ images, popularCourses });

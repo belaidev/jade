@@ -2,7 +2,7 @@ import { json, LoaderFunction } from "@remix-run/node";
 import { fetchPopularCourseById } from "~/services/fetchPopularCourseById-service";
 import { useLoaderData } from "@remix-run/react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import type { PopularCourse, Chapter, Class } from "~/feats/courses/functions-said";
+import type { PopularCourse, Chapter, Class } from "~/services/courseData-service";
 import StarRating from "~/components/star-rating";
 import "./course-detail.css";
 import "~/components/star-rating.css";
