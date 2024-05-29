@@ -1,6 +1,4 @@
-import { gt } from "drizzle-orm";
-import { db } from "~/common/utils/db.server";
-import { courses } from "~/feats/courses/schema";
+import { fetchDiscountCourses } from "./discountCourses-service";
 
 // Fonction pour récupérer les URLs d'images des cours en promotion
 export async function fetchDiscountThumbnailUrls(): Promise<string[]> {
@@ -9,7 +7,7 @@ export async function fetchDiscountThumbnailUrls(): Promise<string[]> {
         let images: string[] = [];
 
         // Effectuez la requête pour récupérer les cours avec une remise
-        const result = await db.select().from(courses).where(gt(courses.discount, 0));
+        const result = await fetchDiscountCourses();
 
         // Parcourez les résultats de la requête et ajoutez les images au tableau images
         for (const course of result) {
