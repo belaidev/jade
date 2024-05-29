@@ -5,12 +5,14 @@ import { classes, synchronousCourses } from "~/feats/synchronous-courses/schema"
 import { courses } from "~/feats/courses/schema";
 import { formatDuration } from "~/services/formatDuration-service";
 import { getAsynchronousCourseDuration } from "./courseDuration-service";
+import { instructors } from "~/feats/instructors/schema";
+import { getInstructorNameById } from "./instructor-service";
 
 export type CourseCard = {
 	id: number;
 	title: string;
 	description: string;
-	instructorId: number;
+	instructorName: string;
 	thumbnailUrl: string;
 	price: number;
 	discount: number | null;
@@ -75,10 +77,21 @@ export async function getAllCourses() {
 					}, null as Date | null);
 
 					if (firstStartTime) {
-						details.startTime = firstStartTime;
+						details.startTime = firstStartTime.toLocaleString('fr-FR', {
+							day: '2-digit',
+							month: '2-digit',
+							year: 'numeric',
+							hour: '2-digit',
+							minute: '2-digit',
+							hour12: false,
+						});
 					}
 				}
 			console.log("details:", details)
+
+			const instructorName = await getInstructorNameById(course.instructorId);
+      details.instructorName = instructorName ?? "Unknown Instructor";
+
 			return { ...course, ...details } as CourseCard;
 		})
 	);
