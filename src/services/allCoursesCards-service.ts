@@ -16,7 +16,7 @@ export type CourseCard = {
 	discount: number | null;
 	type: "sync" | "async";
 	totalDuration?: string;
-	startTime?: Date;
+	startTime: Date | string;
 };
 
 export type CourseCardAsync = CourseCard & {
