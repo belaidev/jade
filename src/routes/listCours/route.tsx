@@ -7,17 +7,8 @@ interface LoaderData {
 	courses: CourseCard[];
 }
 
-// Fonction utilitaire pour reconvertir les chaînes en dates
-function parseCourseDates(course: Partial<CourseCard>): CourseCard {
-	if (course.startTime) {
-		course.startTime = new Date(course.startTime);
-	}
-	return course as CourseCard;
-}
-
 export async function loader() {
 	let courses = await getAllCourses();
-	courses = courses.map(parseCourseDates); // Convertir les dates
 	return json<LoaderData>({ courses });
 }
 
@@ -29,7 +20,7 @@ export default function Courses() {
 
 	useEffect(() => {
 		// Fonction de tri des cours
-		const sortCourses = (sortBy: string, courses: CourseCard[]) => {
+		const sortCourses = (sortBy: string, courses: ({ id: number; title: string; description: string; instructorId: number; thumbnailUrl: string; price: number; discount: number | null; type: "sync" | "async"; startTime: string; } & { totalDuration?: string | undefined; })[]) => {
 			switch (sortBy) {
 				case "A-Z":
 					return [...courses].sort((a, b) => a.title.localeCompare(b.title));
