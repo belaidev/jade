@@ -1,11 +1,11 @@
 import { eq } from "drizzle-orm";
 import { db } from "~/common/utils/db.server";
 import { asynchronousCourses, chapters, lessons } from "~/feats/asynchronous-courses/schema";
-import { classes, synchronousCourses } from "~/feats/synchronous-courses/schema";
 import { courses } from "~/feats/courses/schema";
+import { classes, synchronousCourses } from "~/feats/synchronous-courses/schema";
 import { formatDuration } from "~/services/formatDuration-service";
 import { getAsynchronousCourseDuration } from "./courseDuration-service";
-import { instructors } from "~/feats/instructors/schema";
+import { getRatingAverageByCourseId } from "./courseRating-service";
 import { getInstructorNameById } from "./instructor-service";
 
 export type CourseCard = {
@@ -19,6 +19,7 @@ export type CourseCard = {
 	type: "sync" | "async";
 	totalDuration?: string;
 	startTime: Date | string;
+	rating: number;
 };
 
 export type CourseCardAsync = CourseCard & {
@@ -56,7 +57,7 @@ export async function getAllCourses() {
 				const totalDuration = await getAsynchronousCourseDuration(course.id);
 				// Ajouter la durée totale au détail du cours
 				details.totalDuration = formatDuration(totalDuration);
-				console.log("totalDuration:", details.totalDuration )
+				console.log("totalDuration:", details.totalDuration);
 			}
 			const syncCourse = await db
 				.select()
@@ -64,33 +65,39 @@ export async function getAllCourses() {
 				.where(eq(synchronousCourses.id, course.id))
 				.leftJoin(classes, eq(classes.synchronousCourseId, synchronousCourses.id));
 
-				if (syncCourse.length > 0) {
-					details.type = "sync";
+			if (syncCourse.length > 0) {
+				details.type = "sync";
 
-					// Trouver la première date de début des classes
-					const firstStartTime = syncCourse.reduce((earliest, course) => {
+				// Trouver la première date de début des classes
+				const firstStartTime = syncCourse.reduce(
+					(earliest, course) => {
 						if (course.Classes && course.Classes.startTime) {
 							const startTime = new Date(course.Classes.startTime);
 							return !earliest || startTime < earliest ? startTime : earliest;
 						}
 						return earliest;
-					}, null as Date | null);
+					},
+					null as Date | null
+				);
 
-					if (firstStartTime) {
-						details.startTime = firstStartTime.toLocaleString('fr-FR', {
-							day: '2-digit',
-							month: '2-digit',
-							year: 'numeric',
-							hour: '2-digit',
-							minute: '2-digit',
-							hour12: false,
-						});
-					}
+				if (firstStartTime) {
+					details.startTime = firstStartTime.toLocaleString("fr-FR", {
+						day: "2-digit",
+						month: "2-digit",
+						year: "numeric",
+						hour: "2-digit",
+						minute: "2-digit",
+						hour12: false
+					});
 				}
-			console.log("details:", details)
+			}
+			console.log("details:", details);
 
 			const instructorName = await getInstructorNameById(course.instructorId);
-      details.instructorName = instructorName ?? "Unknown Instructor";
+			details.instructorName = instructorName ?? "Unknown Instructor";
+
+			const coursRating = await getRatingAverageByCourseId(course.id);
+			details.rating = coursRating;
 
 			return { ...course, ...details } as CourseCard;
 		})

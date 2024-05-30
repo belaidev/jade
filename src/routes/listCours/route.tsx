@@ -32,6 +32,7 @@ export default function Courses() {
 				discount: number | null;
 				type: "sync" | "async";
 				startTime: string;
+				rating: number;
 			} & { totalDuration?: string | undefined })[]
 		) => {
 			switch (sortBy) {
