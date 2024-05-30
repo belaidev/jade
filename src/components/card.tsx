@@ -1,4 +1,6 @@
 import { CourseCard, CourseCardAsync, CourseCardSync } from "~/services/allCoursesCards-service";
+import StarRating from "./star-rating";
+import "~/components/star-rating.css";
 
 export default function Card({ course }: { course: CourseCard }) {
 	// Déterminer le type de cours (synchrone ou asynchrone)
@@ -25,12 +27,17 @@ export default function Card({ course }: { course: CourseCard }) {
 						)}
 						{isSyncCourse(course) && (
 							<>
-								Start Time: {(course.startTime).toLocaleString()}
+								Start Time: {course.startTime.toLocaleString()}
 								{console.log("date :", course.startTime)}
 								<br />
 							</>
 						)}
 						Price: ${course.price}
+						<div className="rating-container">
+							<span>Note: </span>
+								<StarRating rating={course.rating !== undefined ? course.rating : 0} />
+							<span> ({course.rating !== undefined ? course.rating.toFixed(1) : "No rating"})</span>
+						</div>
 					</p>
 				</div>
 			</div>
