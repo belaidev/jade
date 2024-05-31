@@ -10,11 +10,8 @@
   }
   
   .star-rating .star {
-    font-size: 1.2em; /* Taille des étoiles */
-    margin: 1px; /* Espacement entre les étoiles */
-    color: #fdce03; /* Couleur des étoiles */
+    font-size: 1.5em;
+    color: #fdce03;
   }
+
   
-  .star-rating .star.empty {
-    color: #333; /* Couleur des étoiles vides */
-  }

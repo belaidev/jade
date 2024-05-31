@@ -22,7 +22,7 @@ export default function Card({ course }: { course: CourseCard }) {
                 <img className="w-full" src={course.thumbnailUrl} alt={course.title} />
                 <div className="px-6 py-4">
                     <div className="mb-2 text-xl font-bold">{course.title}</div>
-                    <p className="text-base text-gray-700">
+                    <div className="text-base text-gray-700">
                         Description: {course.description}
                         <br />
                         Instructor: {course.instructorName}
@@ -47,7 +47,7 @@ export default function Card({ course }: { course: CourseCard }) {
                             <StarRating rating={course.rating !== undefined ? course.rating : 0} />
                             <span> ({course.rating !== undefined ? course.rating.toFixed(1) : "No rating"})</span>
                         </div>
-                    </p>
+                    </div>
                     <button onClick={handleAddToCart} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter au panier</button>
                 </div>
             </div>

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faStarHalfAlt, faStar as faStarEmpty } from '@fortawesome/free-solid-svg-icons';
 
 interface StarRatingProps {
     rating: number;
 }
-
 const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
     const [stars, setStars] = useState<JSX.Element[]>([]);
 
@@ -16,11 +13,11 @@ const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
         let etoilesHTML = [];
         for (let i = 0; i < 5; i++) {
             if (i < nombreEntier) {
-                etoilesHTML.push(<FontAwesomeIcon key={i} icon={faStar} className="star full" />);
+                etoilesHTML.push(<MdiStar key={i} className="star full" />);
             } else if (i === nombreEntier && nombreDemiEtoiles > 0) {
-                etoilesHTML.push(<FontAwesomeIcon key={i} icon={faStarHalfAlt} className="star half" />);
+                etoilesHTML.push(<MdiStarHalfFull key={i} className="star half" />);
             } else {
-                etoilesHTML.push(<FontAwesomeIcon key={i} icon={faStarEmpty} className="star empty" />);
+                etoilesHTML.push(<MdiStarOutline key={i} className="star empty" />);
             }
         }
         setStars(etoilesHTML);
@@ -28,5 +25,4 @@ const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
 
     return <div className="star-rating">{stars}</div>;
 };
-
 export default StarRating;
