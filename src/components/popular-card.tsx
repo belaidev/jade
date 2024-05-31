@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import StarRating from './star-rating';
 import type { PopularCourse } from '~/services/courseData-service';
 import { formatDuration } from "~/services/formatDuration-service";
