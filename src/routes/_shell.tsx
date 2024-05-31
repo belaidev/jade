@@ -31,11 +31,14 @@ export const Route: RouteComponent = () => {
 	return (
 		<>
 			{/* Header */}
-			<header className="border-b px-3 font-display">
+			<header className="sticky top-0 z-50 border-b bg-white px-3 font-display">
 				<nav className="flex items-center justify-between">
 					{/* Brand */}
 					<div className="py-3">
-						<a className="flex items-center font-head text-xl font-light lowercase" href="/">
+						<a
+							className="flex items-center font-head text-xl font-light lowercase text-primary"
+							href="/"
+						>
 							<MdiLanguageRuby className="mr-2" /> Jade
 						</a>
 					</div>

@@ -45,7 +45,7 @@ export default function IndexPage() {
 			<div className="flex w-full flex-col items-center">
 				<div className="mb-4 font-head text-5xl lowercase">
 					<p className="welcome-text">
-						Bienvenue sur <span className="font-thin text-primary-1">jade</span>
+						Bienvenue sur <span className="font-thin text-primary">jade</span>
 					</p>
 				</div>
 
