@@ -1,5 +1,5 @@
 import { int, mysqlTable } from "drizzle-orm/mysql-core";
-import { persons } from "../persons/schema";
+import { personsTable as persons } from "~/feats/persons/schema";
 
 export const instructors = mysqlTable("Instructors", {
 	id: int("id", { unsigned: true })
