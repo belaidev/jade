@@ -6,7 +6,6 @@ import { CartProvider, useCart } from '~/contexts/CartContext';
 // @ts-expect-error ...
 import stylesheet from "~/root.css?url";
 
-
 export const links: LinksFunction = () => [
   { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
   { rel: "stylesheet", href: stylesheet }
