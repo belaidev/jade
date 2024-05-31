@@ -10,41 +10,8 @@
   }
   
   .star-rating .star {
-    font-size: 1.5em; /* Taille des étoiles */
-    color: #fdce03; /* Couleur des étoiles */
-    background-color: rgb(32, 212, 65);
+    font-size: 1.5em;
+    color: #fdce03;
   }
+
   
-  .star-rating .star.empty {
-    color: rgb(0, 0, 0, 0.6); /* Couleur des étoiles vides */
-    padding-left: 0;
-    margin-left: 0;
-  }
-
-  .star-container {
-    display: flex;
-    align-items: center;
-  }
-
-  .left-half {
-    font-size: 1.5em;
-    overflow: hidden;
-    padding-right: 0;
-    margin-right: -50%;
-    background-color: red;
-    width: 50%;
-  }
-
-  .right-half {
-    font-size: 1.5em;
-    transform: scaleX(-1); /* Inversion horizontale */
-    overflow: hidden; /* Cacher la moitié droite */
-    margin-left: 0;
-    padding-left: 0;
-    padding-right: 0;
-    margin-right: 0px;
-    color: rgb(0, 0, 0, 0.6);
-    background-color:  rgb(0, 0, 0, 0);
-    background-color: blue;
-    width: 50%;
- }

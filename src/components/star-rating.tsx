@@ -15,9 +15,9 @@ const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
             if (i < nombreEntier) {
                 etoilesHTML.push(<MdiStar key={i} className="star full" />);
             } else if (i === nombreEntier && nombreDemiEtoiles > 0) {
-                etoilesHTML.push(<span key={i} className="star-container"><MdiStarHalf className="star left-half" /><MdiStarHalf className="right-half" /></span>);
+                etoilesHTML.push(<MdiStarHalfFull key={i} className="star half" />);
             } else {
-                etoilesHTML.push(<MdiStar key={i} className="star empty" />);
+                etoilesHTML.push(<MdiStarOutline key={i} className="star empty" />);
             }
         }
         setStars(etoilesHTML);
