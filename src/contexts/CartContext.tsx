@@ -6,6 +6,7 @@ type CartContextType = {
   addToCart: (course: PopularCourse) => void;
   removeFromCart: (courseId: number) => void;
   clearCart: () => void;
+  isInCart: (courseId: number) => boolean;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -30,7 +31,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   }, [cart]);
 
   const addToCart = (course: PopularCourse) => {
-    setCart((prevCart) => [...prevCart, course]);
+    if (!isInCart(course.id)) {
+      setCart((prevCart) => [...prevCart, course]);
+    }
   };
 
   const removeFromCart = (courseId: number) => {
@@ -41,8 +44,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     setCart([]);
   };
 
+  const isInCart = (courseId: number) => {
+    return cart.some(course => course.id === courseId);
+  };
+
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, isInCart }}>
       {children}
     </CartContext.Provider>
   );
