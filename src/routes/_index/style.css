@@ -46,7 +46,7 @@ main, body {
 /* Style icone Feu */
 .fire-icon {
   color: #ff3d00;
-  font-size: 1.5em;
+  font-size: 2em;
   background: linear-gradient(45deg, #ff9a00, #ff3d00);
   background-clip: text;
   -webkit-text-fill-color: transparent;
