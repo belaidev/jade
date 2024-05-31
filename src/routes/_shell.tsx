@@ -4,11 +4,22 @@ import { RouteComponent } from "@remix-run/react/dist/routeModules";
 import { StatusCodes } from "http-status-codes";
 import { Button } from "shadcn/components/ui/button";
 import { commit, transact } from "~/common/utils";
+import { useCart } from "~/contexts/CartContext";
 import { Person } from "~/feats/persons/schema";
 import { findPersonById } from "~/feats/persons/services";
 import { SignInBtn, SignOutBtn, SignUpBtn } from "~/feats/users/components";
 import { authenticate } from "~/feats/users/services";
 
+const CartIcon = () => {
+	const { cart } = useCart();
+	return (
+	  <a className="flex items-center p-2 font-medium" href="/panier">
+		{cart.length}&nbsp;
+		<MdiCartOutline />
+	  </a>
+	);
+  };
+  
 export const loader: LoaderFunction = async ({ request }) =>
 	await transact(async (tx) => {
 		const cookie = request.headers.get("Cookie");
@@ -62,6 +73,11 @@ export const Route: RouteComponent = () => {
 						<Button variant="ghost" asChild>
 							<a href="/listCours">Liste des cours</a>
 						</Button>
+
+						{/* Cart */}
+						<li>
+							<CartIcon />
+						</li>
 
 						{/* Sign in */}
 						{!person && location.pathname !== "/connection" && (
