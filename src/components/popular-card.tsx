@@ -2,11 +2,13 @@ import { useEffect, useRef } from 'react';
 import StarRating from './star-rating';
 import type { PopularCourse } from '~/services/courseData-service';
 import { formatDuration } from "~/services/formatDuration-service";
+import { useCart } from '~/contexts/CartContext';
 import "./popular-card.css";
 import "./star-rating.css";
 
 export default function PopularCard(course: PopularCourse) {
     const cardRef = useRef<HTMLDivElement>(null);
+    const { addToCart } = useCart();
 
     useEffect(() => {
         const adjustCardHeights = () => {
@@ -70,6 +72,15 @@ export default function PopularCard(course: PopularCourse) {
                                     <StarRating rating={course.rating !== undefined ? course.rating : 0} />
                                     <span> ({course.rating !== undefined ? course.rating.toFixed(1) : 'No rating'})</span>
                                 </div>
+                                <button 
+                                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        addToCart(course);
+                                    }}
+                                >
+                                    Ajouter au panier
+                                </button>
                             </div>
                         </div>
                     </div>

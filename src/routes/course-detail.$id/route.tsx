@@ -4,10 +4,11 @@ import { useLoaderData } from "@remix-run/react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import type { PopularCourse, Chapter, Class } from "~/services/courseData-service";
 import StarRating from "~/components/star-rating";
-import "./course-detail.css";
-import "~/components/star-rating.css";
 import { checkCourseCategory, fetchAsynchronousCourseData, fetchSynchronousCourseData } from "~/services/fetchCourseStructure-service";
 import { formatDuration } from "~/services/formatDuration-service";
+import { useCart } from '~/contexts/CartContext';
+import "./course-detail.css";
+import "~/components/star-rating.css";
 
 type LoaderData = {
     course: PopularCourse;
@@ -49,6 +50,11 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function CourseDetailRoute() {
     const { course, isAsynchronous, isSynchronous, chaptersWithLessons, classes } = useLoaderData<LoaderData>();
+    const { addToCart } = useCart();
+
+    const handleAddToCart = () => {
+        addToCart(course);
+    };
 
     return (
         <div className="course-detail">
@@ -61,10 +67,10 @@ export default function CourseDetailRoute() {
             {course.discount ? <p className="course-discount">Promotion: -{course.discount }%</p> : null}
             {course.rating !== undefined && (
                 <div className="rating-container">
-                                    <span>Note: </span>
-                                    <StarRating rating={course.rating !== undefined ? course.rating : 0} />
-                                    <span> ({course.rating !== undefined ? course.rating.toFixed(1) : 'No rating'})</span>
-                                </div>
+                    <span>Note: </span>
+                    <StarRating rating={course.rating !== undefined ? course.rating : 0} />
+                    <span> ({course.rating !== undefined ? course.rating.toFixed(1) : 'No rating'})</span>
+                </div>
             )}
             <div className="course-structure-section">
                 {isAsynchronous && (
@@ -105,7 +111,7 @@ export default function CourseDetailRoute() {
             </div>
 
             <div className="commande-section">
-                <button className="btn">Ajouter</button>
+                <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleAddToCart}>Ajouter au panier</button>
             </div>
         </div>
     );

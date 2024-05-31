@@ -1,0 +1,118 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Conteneur principal */
+.cart-container {
+    width: fit-content;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* En-tête */
+.cart-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cart-header h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Liste des articles */
+.cart-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item h3 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.cart-item p {
+    margin: 5px 0 0;
+    color: #6c757d;
+}
+
+.cart-item button {
+    background-color: #333;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 20px;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-item button:hover {
+    background-color: #ce1f31;
+}
+
+/* Section du total et du paiement */
+.cart-total {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.cart-total h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #333333;
+}
+
+.cart-total p {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #6c757d;
+}
+
+.cart-total button {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-total button:hover {
+    background-color: #218838;
+}
+
+/* Message de panier vide */
+.empty-cart {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.empty-cart p {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
