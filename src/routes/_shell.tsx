@@ -44,6 +44,20 @@ export const Route: RouteComponent = () => {
 					</div>
 
 					<ul className="flex gap-2">
+						{/* Search bar */}
+						<li>
+									<form action="/search" method="get" className="flex items-center">
+										<input
+											type="text"
+											name="q"
+											placeholder="Rechercher..."
+											className="px-2 py-1 rounded-full border border-gray-300 text-black"
+										/>
+										<button type="submit" className="p-2 text-on-primary-1">
+											<MdiMagnify />
+										</button>
+									</form>
+								</li>
 						{/* Courses */}
 						<Button variant="ghost" asChild>
 							<a href="/listCours">Liste des cours</a>
