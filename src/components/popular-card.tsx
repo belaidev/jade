@@ -1,57 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import StarRating from './star-rating';
 import type { PopularCourse } from '~/services/courseData-service';
 import { formatDuration } from "~/services/formatDuration-service";
 import { useCart } from '~/contexts/CartContext';
 import "./popular-card.css";
 import "./star-rating.css";
+import { Button } from 'shadcn/components/ui';
 
 export default function PopularCard(course: PopularCourse) {
     const cardRef = useRef<HTMLDivElement>(null);
     const { addToCart } = useCart();
-
-    useEffect(() => {
-        const adjustCardHeights = () => {
-            const cards = document.querySelectorAll('.popular-card');
-
-            let maxHeight = 0;
-
-            cards.forEach((card) => {
-                const cardHeight = card.getBoundingClientRect().height;
-                if (cardHeight > maxHeight) {
-                    maxHeight = cardHeight;
-                }
-            });
-
-            cards.forEach((card) => {
-                const cardContent = card.querySelector('.card-text-content') as HTMLElement;
-                const currentHeight = card.getBoundingClientRect().height;
-                const paddingNeeded = maxHeight - currentHeight + 10;
-                cardContent.style.paddingBottom = `${paddingNeeded}px`;
-            });
-        };
-
-        const observer = new MutationObserver((mutations) => {
-            for (let mutation of mutations) {
-                if (mutation.type === 'childList') {
-                    adjustCardHeights();
-                }
-            }
-        });
-
-        const config = { childList: true, subtree: true };
-        if (cardRef.current) {
-            observer.observe(cardRef.current.parentElement!, config);
-        }
-
-        // Initial adjustment
-        adjustCardHeights();
-
-        // Cleanup observer on component unmount
-        return () => {
-            observer.disconnect();
-        };
-    }, []);
 
     return (
         <div className='contain'>
@@ -72,15 +30,14 @@ export default function PopularCard(course: PopularCourse) {
                                     <StarRating rating={course.rating !== undefined ? course.rating : 0} />
                                     <span> ({course.rating !== undefined ? course.rating.toFixed(1) : 'No rating'})</span>
                                 </div>
-                                <button 
-                                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                <Button className="btn-add"
                                     onClick={(e) => {
                                         e.preventDefault();
                                         addToCart(course);
                                     }}
                                 >
                                     Ajouter au panier
-                                </button>
+                                </Button>
                             </div>
                         </div>
                     </div>

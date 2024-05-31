@@ -78,6 +78,10 @@
   flex: 1;
 }
 
+.btn-add {
+  margin-top: 10px;
+}
+
 /* Media query pour s'adapter aux petits écrans */
 @media (max-width: 600px) {
   .popular-card-section {

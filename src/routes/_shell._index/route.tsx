@@ -10,6 +10,7 @@ import { fetchDiscountThumbnailUrls } from "~/services/carousel-service.ts";
 import type { PopularCourse } from "~/services/courseData-service";
 import { fetchPopularCourses } from "~/services/fetchPopularCourses-service";
 import "./style.css";
+import { Button } from "shadcn/components/ui";
 
 interface LoaderData {
 	images: string[];
@@ -57,9 +58,12 @@ export default function IndexPage() {
 					<div className="carousel-section">
 						<Carousel images={images} />
 					</div>
-					<a href="/discount-courses" className="promotion-link">
+					<Button className="btn-promo">
+					<div className="shiny"></div>
+					<a href="/discount-courses">
 						Voir toutes les promotions
 					</a>
+					</Button>
 				</div>
 
 				<div className="popular-section w-full">
