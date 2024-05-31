@@ -13,7 +13,6 @@ export async function loader() {
 }
 
 export default function Courses() {
-	console.log("page montée");
 	const { courses } = useLoaderData<LoaderData>();
 	const [sortBy, setSortBy] = useState<string>("");
 	const [sortedCourses, setSortedCourses] = useState<CourseCard[]>([]);

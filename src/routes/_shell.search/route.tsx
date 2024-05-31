@@ -13,14 +13,14 @@ export const loader: LoaderFunction = async ({ request }) => {
 	const keywords = url.searchParams.get("q") || "";
 
 	const searchResults = await fetchSearchCourses(keywords);
-	console.log("searchResults from loader", searchResults)
+
 	return json<LoaderData>({ searchResults });
 };
 
 export default function SearchResults() {
 	const loaderData = useLoaderData<LoaderData>();
 	const searchResults = loaderData.searchResults;
-	console.log("searchResults", searchResults)
+
 
 	const isResultsArray = Array.isArray(searchResults);
 
