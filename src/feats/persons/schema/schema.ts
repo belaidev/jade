@@ -1,5 +1,5 @@
 import { InferSelectModel, sql } from "drizzle-orm";
-import { int, mysqlEnum, mysqlTable, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { usersTable } from "~/feats/users/schema";
 
 export type Person = InferSelectModel<PersonsTable>;
@@ -20,7 +20,11 @@ export const personsTable = mysqlTable("Persons", {
 		"entrepreneur",
 		"hobbyist"
 	]).notNull(),
-	creationTime: int("creationTime", { unsigned: true })
-		.default(sql`UNIX_TIMESTAMP()`)
+	creationTime: timestamp("creationTime")
+		.default(sql`CURRENT_TIMESTAMP()`)
+		.notNull(),
+	updateTime: timestamp("updateTime")
+		.default(sql`CURRENT_TIMESTAMP()`)
 		.notNull()
+		.$onUpdate(() => new Date())
 });
