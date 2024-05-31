@@ -11,41 +11,47 @@ import "./course-detail.css";
 import "~/components/star-rating.css";
 
 type LoaderData = {
-    course: PopularCourse;
-    isAsynchronous: boolean;
-    isSynchronous: boolean;
-    chaptersWithLessons: Chapter[];
-    classes: Class[];
+	course: PopularCourse;
+	isAsynchronous: boolean;
+	isSynchronous: boolean;
+	chaptersWithLessons: Chapter[];
+	classes: Class[];
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
-    const { id } = params;
-    if (!id) {
-        throw new Response("Course ID is required", { status: 400 });
-    }
-    const courseId = parseInt(id, 10);
-    if (isNaN(courseId)) {
-        throw new Response("Invalid course ID", { status: 400 });
-    }
+	const { id } = params;
+	if (!id) {
+		throw new Response("Course ID is required", { status: 400 });
+	}
+	const courseId = parseInt(id, 10);
+	if (isNaN(courseId)) {
+		throw new Response("Invalid course ID", { status: 400 });
+	}
 
-    const course = await fetchPopularCourseById(courseId);
-    if (!course) {
-        throw new Response("Course not found", { status: 404 });
-    }
+	const course = await fetchPopularCourseById(courseId);
+	if (!course) {
+		throw new Response("Course not found", { status: 404 });
+	}
 
-    let data: LoaderData = { course, isAsynchronous: false, isSynchronous: false, chaptersWithLessons: [], classes: [] };
+	let data: LoaderData = {
+		course,
+		isAsynchronous: false,
+		isSynchronous: false,
+		chaptersWithLessons: [],
+		classes: []
+	};
 
-    const { isAsynchronous, isSynchronous } = await checkCourseCategory(courseId);
+	const { isAsynchronous, isSynchronous } = await checkCourseCategory(courseId);
 
-    if (isAsynchronous) {
-        const chaptersWithLessons = await fetchAsynchronousCourseData(courseId);
-        data = { ...data, isAsynchronous: true, chaptersWithLessons };
-    } else if (isSynchronous) {
-        const transformedClasses = await fetchSynchronousCourseData(courseId);
-        data = { ...data, isSynchronous: true, classes: transformedClasses };
-    }
+	if (isAsynchronous) {
+		const chaptersWithLessons = await fetchAsynchronousCourseData(courseId);
+		data = { ...data, isAsynchronous: true, chaptersWithLessons };
+	} else if (isSynchronous) {
+		const transformedClasses = await fetchSynchronousCourseData(courseId);
+		data = { ...data, isSynchronous: true, classes: transformedClasses };
+	}
 
-    return json(data);
+	return json(data);
 };
 
 export default function CourseDetailRoute() {
