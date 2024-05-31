@@ -1,5 +1,5 @@
 import { InferSelectModel, sql } from "drizzle-orm";
-import { int, mysqlTable, unique, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlTable, timestamp, unique, varchar } from "drizzle-orm/mysql-core";
 
 export type User = InferSelectModel<UsersTable>;
 
@@ -7,13 +7,13 @@ export type UsersTable = typeof usersTable;
 
 export const usersTable = mysqlTable("Users", {
 	id: int("id", { unsigned: true }).primaryKey().autoincrement(),
-	creationTime: int("creationTime", { unsigned: true })
-		.default(sql`UNIX_TIMESTAMP()`)
+	creationTime: timestamp("creationTime")
+		.default(sql`CURRENT_TIMESTAMP()`)
 		.notNull(),
-	updateTime: int("updateTime", { unsigned: true })
-		.default(sql`UNIX_TIMESTAMP()`)
+	updateTime: timestamp("updateTime")
+		.default(sql`CURRENT_TIMESTAMP()`)
 		.notNull()
-		.$onUpdate(() => Date.now())
+		.$onUpdate(() => new Date())
 });
 
 export type Email = InferSelectModel<EmailTable>;
@@ -26,8 +26,8 @@ export const emailsTable = mysqlTable("Emails", {
 		.references(() => usersTable.id, { onDelete: "cascade" })
 		.notNull(),
 	address: varchar("address", { length: 254 }).notNull(),
-	creationTime: int("creationTime", { unsigned: true })
-		.default(sql`UNIX_TIMESTAMP()`)
+	creationTime: timestamp("creationTime")
+		.default(sql`CURRENT_TIMESTAMP()`)
 		.notNull()
 });
 
@@ -39,8 +39,8 @@ export const otpsTable = mysqlTable("Otps", {
 	id: int("id", { unsigned: true }).primaryKey().autoincrement(),
 	email: varchar("email", { length: 254 }).notNull(),
 	code: varchar("code", { length: 6 }).notNull(),
-	creationTime: int("creationTime", { unsigned: true })
-		.default(sql`UNIX_TIMESTAMP()`)
+	creationTime: timestamp("creationTime")
+		.default(sql`CURRENT_TIMESTAMP()`)
 		.notNull()
 });
 
@@ -56,8 +56,8 @@ export const passwordsTable = mysqlTable(
 			.references(() => usersTable.id, { onDelete: "cascade" })
 			.notNull(),
 		hash: varchar("hash", { length: 100 }).notNull(),
-		creationTime: int("creationTime", { unsigned: true })
-			.default(sql`UNIX_TIMESTAMP()`)
+		creationTime: timestamp("creationTime")
+			.default(sql`CURRENT_TIMESTAMP()`)
 			.notNull()
 	},
 	(password) => ({
@@ -74,7 +74,7 @@ export const sessionsTable = mysqlTable("Sessions", {
 	userId: int("userId", { unsigned: true })
 		.references(() => usersTable.id, { onDelete: "cascade" })
 		.notNull(),
-	creationTime: int("creationTime", { unsigned: true })
-		.default(sql`UNIX_TIMESTAMP()`)
+	creationTime: timestamp("creationTime")
+		.default(sql`CURRENT_TIMESTAMP()`)
 		.notNull()
 });
