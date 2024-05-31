@@ -22,9 +22,5 @@ export const personsTable = mysqlTable("Persons", {
 	]).notNull(),
 	creationTime: int("creationTime", { unsigned: true })
 		.default(sql`UNIX_TIMESTAMP()`)
-		.notNull(),
-	updateTime: int("updateTime", { unsigned: true })
-		.default(sql`UNIX_TIMESTAMP()`)
 		.notNull()
-		.$onUpdate(() => Date.now())
 });
