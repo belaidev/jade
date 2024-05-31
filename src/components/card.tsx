@@ -3,6 +3,7 @@ import StarRating from "./star-rating";
 import { useCart } from '~/contexts/CartContext';
 import "~/components/star-rating.css";
 import { convertToPopularCourse } from "~/services/cardConversion-service";
+import { Button } from 'shadcn/components/ui';
 
 export default function Card({ course }: { course: CourseCard }) {
     const { addToCart } = useCart();
@@ -48,7 +49,7 @@ export default function Card({ course }: { course: CourseCard }) {
                             <span> ({course.rating !== undefined ? course.rating.toFixed(1) : "No rating"})</span>
                         </div>
                     </div>
-                    <button onClick={handleAddToCart} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Ajouter au panier</button>
+                    <Button onClick={handleAddToCart} className="btn-add mt-5">Ajouter au panier</Button>
                 </div>
             </div>
         </a>
