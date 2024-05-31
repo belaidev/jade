@@ -44,6 +44,11 @@ export const Route: RouteComponent = () => {
 					</div>
 
 					<ul className="flex gap-2">
+						{/* Courses */}
+						<Button variant="ghost" asChild>
+							<a href="/listCours">Liste des cours</a>
+						</Button>
+
 						{/* Sign in */}
 						{!person && location.pathname !== "/connection" && (
 							<li>
