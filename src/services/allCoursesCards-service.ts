@@ -50,14 +50,13 @@ export async function getAllCourses() {
 				.leftJoin(chapters, eq(chapters.asynchronousCourseId, asynchronousCourses.id))
 				.leftJoin(lessons, eq(lessons.chapterId, chapters.id));
 
-			console.log("asyncCourse : ", asyncCourse);
 			if (asyncCourse.length > 0) {
 				details.type = "async";
 				// Calculer la durée totale des leçons asynchrones
 				const totalDuration = await getAsynchronousCourseDuration(course.id);
 				// Ajouter la durée totale au détail du cours
 				details.totalDuration = formatDuration(totalDuration);
-				console.log("totalDuration:", details.totalDuration);
+
 			}
 			const syncCourse = await db
 				.select()
@@ -91,7 +90,7 @@ export async function getAllCourses() {
 					});
 				}
 			}
-			console.log("details:", details);
+
 
 			const instructorName = await getInstructorNameById(course.instructorId);
 			details.instructorName = instructorName ?? "Unknown Instructor";

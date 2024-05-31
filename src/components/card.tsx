@@ -21,14 +21,14 @@ export default function Card({ course }: { course: CourseCard }) {
 						{isAsyncCourse(course) && (
 							<>
 								Duration: {course.totalDuration}
-								{console.log("duration :", course.totalDuration)}
+								
 								<br />
 							</>
 						)}
 						{isSyncCourse(course) && (
 							<>
 								Start Time: {course.startTime.toLocaleString()}
-								{console.log("date :", course.startTime)}
+
 								<br />
 							</>
 						)}
