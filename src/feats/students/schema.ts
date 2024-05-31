@@ -1,7 +1,7 @@
 import { int, mysqlTable, unique } from "drizzle-orm/mysql-core";
 import { entityCols } from "~/common/models/Entity";
+import { personsTable as persons } from "~/feats/persons/schema";
 import { courses } from "../courses/schema";
-import { persons } from "../persons/schema";
 
 export const students = mysqlTable("Students", {
 	id: int("id", { unsigned: true })
