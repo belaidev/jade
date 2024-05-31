@@ -2,6 +2,7 @@ import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import { LayoutComponent } from "@remix-run/react/dist/routeModules";
 import { ReactNode } from "react";
+// @ts-expect-error ...
 import stylesheet from "~/root.css?url";
 
 export const links: LinksFunction = () => [
