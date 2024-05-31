@@ -58,7 +58,7 @@ export const Layout: LayoutComponent = ({ children }: { children: ReactNode }) =
 
 								{/* Sign in */}
 								<li>
-									<a className="flex items-center p-2 font-medium" href="/sidentifier">
+									<a className="flex items-center p-2 font-medium" href="/connection">
 										<MdiLogin />
 										&nbsp;{"S'identifier"}
 									</a>
@@ -68,7 +68,7 @@ export const Layout: LayoutComponent = ({ children }: { children: ReactNode }) =
 								<li>
 									<a
 										className="flex items-center rounded-full bg-primary-2 px-4 py-2 font-medium text-on-primary-2"
-										href="/sinscrire"
+										href="/inscription"
 									>
 										<MdiAccountPlusOutline />
 										&nbsp;{"S'inscrire"}
