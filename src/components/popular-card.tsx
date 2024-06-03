@@ -9,13 +9,13 @@ import { Button } from 'shadcn/components/ui';
 
 export default function PopularCard(course: PopularCourse) {
     const cardRef = useRef<HTMLDivElement>(null);
-    const { addToCart } = useCart();
+    const { addToCart, isInCart } = useCart();
 
     return (
         <div className='contain'>
             <div className='popular-card' ref={cardRef}>
                 <div className='shine'></div>
-                <a href={`/course-detail/${course.id}`} className='card-link'>
+                <a href={`/course-detail/${course.id}`} className="card-link">
                     <div className="max-w-sm overflow-hidden rounded shadow-lg card-content">
                         <img className="w-full" src={course.thumbnailUrl} alt={course.title} />
                         <div className="card-text-content px-6 py-4">
@@ -35,8 +35,9 @@ export default function PopularCard(course: PopularCourse) {
                                         e.preventDefault();
                                         addToCart(course);
                                     }}
+                                    disabled={isInCart(course.id)}
                                 >
-                                    Ajouter au panier
+                                    {isInCart(course.id) ? 'Ajouté' : 'Ajouter au panier'}
                                 </Button>
                             </div>
                         </div>

@@ -6,7 +6,7 @@ import { convertToPopularCourse } from "~/services/cardConversion-service";
 import { Button } from 'shadcn/components/ui';
 
 export default function Card({ course }: { course: CourseCard }) {
-    const { addToCart } = useCart();
+    const { addToCart, isInCart } = useCart();
 
     const isSyncCourse = (course: CourseCard): course is CourseCardSync => course.type === "sync";
     const isAsyncCourse = (course: CourseCard): course is CourseCardAsync => course.type === "async";
@@ -49,7 +49,13 @@ export default function Card({ course }: { course: CourseCard }) {
                             <span> ({course.rating !== undefined ? course.rating.toFixed(1) : "No rating"})</span>
                         </div>
                     </div>
-                    <Button onClick={handleAddToCart} className="btn-add mt-5">Ajouter au panier</Button>
+                    <Button
+                        onClick={handleAddToCart}
+                        className="btn-add mt-5"
+                        disabled={isInCart(course.id)}
+                    >
+                        {isInCart(course.id) ? 'Ajouté' : 'Ajouter au panier'}
+                    </Button>
                 </div>
             </div>
         </a>

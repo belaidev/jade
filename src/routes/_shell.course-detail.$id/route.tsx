@@ -9,6 +9,7 @@ import { formatDuration } from "~/services/formatDuration-service";
 import { useCart } from '~/contexts/CartContext';
 import "./course-detail.css";
 import "~/components/star-rating.css";
+import { Button } from 'shadcn/components/ui';
 
 type LoaderData = {
 	course: PopularCourse;
@@ -56,7 +57,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export default function CourseDetailRoute() {
     const { course, isAsynchronous, isSynchronous, chaptersWithLessons, classes } = useLoaderData<LoaderData>();
-    const { addToCart } = useCart();
+    const { addToCart, isInCart } = useCart();
 
     const handleAddToCart = () => {
         addToCart(course);
@@ -117,7 +118,15 @@ export default function CourseDetailRoute() {
             </div>
 
             <div className="commande-section">
-                <button className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleAddToCart}>Ajouter au panier</button>
+            <Button className="btn-add"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleAddToCart;
+                                    }}
+                                    disabled={isInCart(course.id)}
+                                >
+                                    {isInCart(course.id) ? 'Ajouté' : 'Ajouter au panier'}
+                                </Button>
             </div>
         </div>
     );
