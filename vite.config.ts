@@ -4,7 +4,6 @@ import AutoImport from "unplugin-auto-import/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import Icons from "unplugin-icons/vite";
 import { defineConfig } from "vite";
-import envOnly from "vite-env-only";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 installGlobals();
@@ -24,6 +23,5 @@ export default defineConfig({
 			]
 		}),
 		Icons({ compiler: "jsx", jsx: "react", scale: 1 }),
-		envOnly()
 	]
 });

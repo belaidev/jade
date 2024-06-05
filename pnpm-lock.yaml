@@ -66,8 +66,8 @@ dependencies:
     specifier: ^4.17.21
     version: 4.17.21
   lucide-react:
-    specifier: ^0.379.0
-    version: 0.379.0(react@18.3.1)
+    specifier: ^0.383.0
+    version: 0.383.0(react@18.3.1)
   ms:
     specifier: ^2.1.3
     version: 2.1.3
@@ -191,8 +191,8 @@ devDependencies:
     specifier: ^2.1.2
     version: 2.1.2(postcss@8.4.38)(prettier@3.3.1)
   prettier-plugin-tailwindcss:
-    specifier: ^0.5.14
-    version: 0.5.14(prettier-plugin-css-order@2.1.2)(prettier@3.3.1)
+    specifier: ^0.6.1
+    version: 0.6.1(prettier-plugin-css-order@2.1.2)(prettier@3.3.1)
   svgo:
     specifier: ^3.3.2
     version: 3.3.2
@@ -200,8 +200,8 @@ devDependencies:
     specifier: ^3.4.4
     version: 3.4.4(ts-node@10.9.2)
   ts-essentials:
-    specifier: ^9.4.2
-    version: 9.4.2(typescript@5.4.5)
+    specifier: ^10.0.0
+    version: 10.0.0(typescript@5.4.5)
   typescript:
     specifier: ^5.4.5
     version: 5.4.5
@@ -209,14 +209,11 @@ devDependencies:
     specifier: ^0.17.6
     version: 0.17.6
   unplugin-icons:
-    specifier: ^0.18.5
-    version: 0.18.5(@svgr/core@8.1.0)
+    specifier: ^0.19.0
+    version: 0.19.0(@svgr/core@8.1.0)
   vite:
     specifier: ^5.2.12
     version: 5.2.12(@types/node@20.14.2)
-  vite-env-only:
-    specifier: ^2.4.1
-    version: 2.4.1(vite@5.2.12)
   vite-tsconfig-paths:
     specifier: ^4.3.2
     version: 4.3.2(typescript@5.4.5)(vite@5.2.12)
@@ -6167,8 +6164,8 @@ packages:
     engines: {node: '>=16.14'}
     dev: false
 
-  /lucide-react@0.379.0(react@18.3.1):
-    resolution: {integrity: sha512-KcdeVPqmhRldldAAgptb8FjIunM2x2Zy26ZBh1RsEUcdLIvsEmbcw7KpzFYUy5BbpGeWhPu9Z9J5YXfStiXwhg==}
+  /lucide-react@0.383.0(react@18.3.1):
+    resolution: {integrity: sha512-13xlG0CQCJtzjSQYwwJ3WRqMHtRj3EXmLlorrARt7y+IHnxUCp3XyFNL1DfaGySWxHObDvnu1u1dV+0VMKHUSg==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -7403,8 +7400,8 @@ packages:
       - postcss
     dev: true
 
-  /prettier-plugin-tailwindcss@0.5.14(prettier-plugin-css-order@2.1.2)(prettier@3.3.1):
-    resolution: {integrity: sha512-Puaz+wPUAhFp8Lo9HuciYKM2Y2XExESjeT+9NQoVFXZsPPnc9VYss2SpxdQ6vbatmt8/4+SN0oe0I1cPDABg9Q==}
+  /prettier-plugin-tailwindcss@0.6.1(prettier-plugin-css-order@2.1.2)(prettier@3.3.1):
+    resolution: {integrity: sha512-AnbeYZu0WGj+QgKciUgdMnRxrqcxltleZPgdwfA5104BHM3siBLONN/HLW1yS2HvzSNkzpQ/JAj+LN0jcJO+0w==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
@@ -8426,10 +8423,10 @@ packages:
       typescript: 5.4.5
     dev: true
 
-  /ts-essentials@9.4.2(typescript@5.4.5):
-    resolution: {integrity: sha512-mB/cDhOvD7pg3YCLk2rOtejHjjdSi9in/IBYE13S+8WA5FBSraYf4V/ws55uvs0IvQ/l0wBOlXy5yBNZ9Bl8ZQ==}
+  /ts-essentials@10.0.0(typescript@5.4.5):
+    resolution: {integrity: sha512-77FHNJEyysF9+1s4G6eejuA1lxw7uMchT3ZPy3CIbh7GIunffpshtM8pTe5G6N5dpOzNevqRHew859ceLWVBfw==}
     peerDependencies:
-      typescript: '>=4.1.0'
+      typescript: '>=4.5.0'
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -8729,8 +8726,8 @@ packages:
       - rollup
     dev: true
 
-  /unplugin-icons@0.18.5(@svgr/core@8.1.0):
-    resolution: {integrity: sha512-KVNAohXbZ7tVcG1C3p6QaC7wU9Qrj7etv4XvsMMJAxr5LccQZ+Iuv5LOIv/7GtqXaGN1BuFCqRO1ErsHEgEXdQ==}
+  /unplugin-icons@0.19.0(@svgr/core@8.1.0):
+    resolution: {integrity: sha512-u5g/gIZPZEj1wUGEQxe9nzftOSqmblhusc+sL3cawIRoIt/xWpE6XYcPOfAeFTYNjSbRrX/3QiX89PFiazgU1w==}
     peerDependencies:
       '@svgr/core': '>=7.0.0'
       '@svgx/core': ^1.0.1
@@ -8879,22 +8876,6 @@ packages:
       is-buffer: 2.0.5
       unist-util-stringify-position: 3.0.3
       vfile-message: 3.1.4
-    dev: true
-
-  /vite-env-only@2.4.1(vite@5.2.12):
-    resolution: {integrity: sha512-lvCFPONEjsjFxJQE1sDZY5xW4xumkiW88eXhQ8bfCPuu5jEnqg1TamSThCqLHteV9P8N+jpQLhdPYch9n4MW8A==}
-    peerDependencies:
-      vite: '*'
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/generator': 7.24.7
-      '@babel/parser': 7.24.7
-      '@babel/traverse': 7.24.7
-      '@babel/types': 7.24.7
-      micromatch: 4.0.7
-      vite: 5.2.12(@types/node@20.14.2)
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /vite-node@1.6.0(@types/node@20.14.2):
