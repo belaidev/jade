@@ -1,5 +1,4 @@
 import { drizzle } from "drizzle-orm/mysql2";
-import { migrate } from "drizzle-orm/mysql2/migrator";
 import mysql from "mysql2/promise";
 
 const getEnv = (envVarName: string) => {
@@ -12,10 +11,7 @@ const conn = await mysql.createConnection({
 	host: getEnv("DB_HOST"),
 	user: getEnv("DB_USER"),
 	password: getEnv("DB_PASS"),
-	database: getEnv("DB_DB")
+	database: getEnv("DB_NAME")
 });
 
 export const db = drizzle(conn);
-await migrate(db, { migrationsFolder: "migrations" });
-//await conn.end();
-process.on("beforeExit", async ()=> {await conn.end()})

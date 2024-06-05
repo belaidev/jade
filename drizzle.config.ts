@@ -10,11 +10,11 @@ export default {
 	schema: "./src/feats/**/schema.ts",
 	out: "./migrations",
 	strict: true,
-	driver: "mysql2",
+	dialect: "mysql",
 	dbCredentials: {
 		host: getEnv("DB_HOST"),
 		user: getEnv("DB_USER"),
 		password: getEnv("DB_PASS"),
-		database: getEnv("DB_DB")
+		database: getEnv("DB_NAME")
 	}
 } satisfies Config;
