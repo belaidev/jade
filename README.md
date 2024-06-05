@@ -66,7 +66,7 @@ pnpm migrate
 Exécutez `populate.sql` pour insérer des données factices dans la base de données :
 
 ```
--- Assurez-vous d'ajuster le chemin pour qu'il pointe correctement vers votre script
+-- Assurez-vous d'ajuster le chemin pour qu'il pointe correctement vers le script
 source /tmp/e-learning/populate.sql;
 ```
 
