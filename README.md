@@ -42,6 +42,7 @@ DB_NAME=main
 # Utilisé pour chiffrer les cookies de session
 SECRET_KEY=thisisntaverygoodsecretkey
 ```
+
 ## Créer les tables
 
 Générez un script de migration à partir des fichiers `schema.ts` :
@@ -64,7 +65,7 @@ pnpm migrate
 
 Exécutez `populate.sql` pour insérer des données factices dans la base de données :
 
-```sql
+```
 -- Assurez-vous d'ajuster le chemin pour qu'il pointe correctement vers votre script
 source /tmp/e-learning/populate.sql;
 ```
