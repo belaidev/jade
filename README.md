@@ -3,7 +3,7 @@
 Créez la base de données MySQL :
 
 ```sql
-CREATE DATABASE MAIN;
+CREATE DATABASE main;
 ```
 
 ## Installer les dépendances
