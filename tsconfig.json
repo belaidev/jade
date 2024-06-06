@@ -44,7 +44,6 @@
 			"unplugin-icons/types/react",
 			"@total-typescript/ts-reset"
 		],
-		"typeRoots": ["./node_modules/@types"],
 
 		/* || Emit */
 		"noEmit": true,

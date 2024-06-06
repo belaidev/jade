@@ -13,13 +13,13 @@ import { authenticate } from "~/feats/users/services";
 const CartIcon = () => {
 	const { cart } = useCart();
 	return (
-	  <a className="flex items-center p-2 font-medium" href="/panier">
-		{cart.length}&nbsp;
-		<MdiCartOutline />
-	  </a>
+		<a className="flex items-center p-2 font-medium" href="/panier">
+			{cart.length}&nbsp;
+			<MdiCartOutline />
+		</a>
 	);
-  };
-  
+};
+
 export const loader: LoaderFunction = async ({ request }) =>
 	await transact(async (tx) => {
 		const cookie = request.headers.get("Cookie");
@@ -57,18 +57,18 @@ export const Route: RouteComponent = () => {
 					<ul className="flex gap-2">
 						{/* Search bar */}
 						<li>
-									<form action="/search" method="get" className="flex items-center">
-										<input
-											type="text"
-											name="q"
-											placeholder="Rechercher..."
-											className="px-2 py-1 rounded-full border border-gray-300 text-black"
-										/>
-										<button type="submit" className="p-2 text-on-primary-1">
-											<MdiMagnify />
-										</button>
-									</form>
-								</li>
+							<form action="/search" method="get" className="flex items-center">
+								<input
+									type="text"
+									name="q"
+									placeholder="Rechercher..."
+									className="rounded-full border border-gray-300 px-2 py-1 text-black"
+								/>
+								<button type="submit" className="text-on-primary-1 p-2">
+									<MdiMagnify />
+								</button>
+							</form>
+						</li>
 						{/* Courses */}
 						<Button variant="ghost" asChild>
 							<a href="/listCours">Liste des cours</a>

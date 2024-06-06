@@ -21,23 +21,22 @@ export default function SearchResults() {
 	const loaderData = useLoaderData<LoaderData>();
 	const searchResults = loaderData.searchResults;
 
-
 	const isResultsArray = Array.isArray(searchResults);
 
 	return (
 		<div>
-				<h1 className="text-center text-4xl font-bold my-8">Résultats de la recherche :</h1>
-				<main>
-						<div className="popular-card-section">
-								{isResultsArray && searchResults.length > 0 ? (
-										searchResults.map((course: PopularCourse) => (
-												<PopularCard key={course.id} {...course} />
-										))
-								) : (
-										<p className="text-center text-2xl my-4">Aucun résultat trouvé pour votre recherche.</p>
-								)}
-						</div>
-				</main>
+			<h1 className="my-8 text-center text-4xl font-bold">Résultats de la recherche :</h1>
+			<main>
+				<div className="popular-card-section">
+					{isResultsArray && searchResults.length > 0 ? (
+						searchResults.map((course: PopularCourse) => (
+							<PopularCard key={course.id} {...course} />
+						))
+					) : (
+						<p className="my-4 text-center text-2xl">Aucun résultat trouvé pour votre recherche.</p>
+					)}
+				</div>
+			</main>
 		</div>
 	);
 }

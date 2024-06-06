@@ -59,10 +59,8 @@ export default function IndexPage() {
 						<Carousel images={images} />
 					</div>
 					<Button className="btn-promo">
-					<div className="shiny"></div>
-					<a href="/discount-courses">
-						Voir toutes les promotions
-					</a>
+						<div className="shiny"></div>
+						<a href="/discount-courses">Voir toutes les promotions</a>
 					</Button>
 				</div>
 
