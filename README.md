@@ -24,13 +24,7 @@ pnpm install
 
 ## Définir les variables d'environnement
 
-À la racine du projet, créez un fichier `.env` :
-
-```bash
-touch .env
-```
-
-Le fichier doit contenir les clés suivantes :
+À la racine du projet, créez un fichier `.env`. Le fichier doit contenir les clés suivantes :
 
 ```
 # Utilisé pour se connecter à la base de données MySQL
