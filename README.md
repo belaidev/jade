@@ -1,6 +1,6 @@
 ## Créer la base de données
 
-Créez la base de données MySQL :
+**Dans votre client MySQL,** créez la base de données MySQL :
 
 ```sql
 CREATE DATABASE main;
@@ -63,7 +63,7 @@ pnpm migrate
 
 ## Remplir la base de données
 
-Exécutez `populate.sql` pour insérer des données factices dans la base de données :
+**Dans votre client MySQL,** exécutez `populate.sql` pour insérer des données factices dans la base de données :
 
 ```
 -- Assurez-vous d'ajuster le chemin pour qu'il pointe correctement vers le script
