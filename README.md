@@ -1,6 +1,6 @@
 ## Créer la base de données
 
-**Dans votre client MySQL,** créez la base de données MySQL :
+**Dans votre client MySQL,** créez la base de données :
 
 ```sql
 CREATE DATABASE main;
